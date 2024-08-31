@@ -285,8 +285,8 @@ class AnimalWellContext(CommonContext):
         # used to delay starting the loop until we can see the data storage values
         self.got_data_storage: bool = False
         self.first_m_disc = True
-        self.used_firecrackers = 0
-        self.used_berries = 0
+        self.used_firecrackers: int
+        self.used_berries: int
 
         from . import AnimalWellWorld
         self.bean_patcher = BeanPatcher().set_logger(logger).set_version_string(AnimalWellWorld.version_string)
@@ -324,6 +324,11 @@ class AnimalWellContext(CommonContext):
         self.tags = set()
         await self.get_username()
         await self.send_connect()
+
+    async def disconnect(self, allow_autoreconnect: bool = False):
+        # this is to fix resending firecrackers/big blue fruit when disconnecting and reconnecting
+        self.got_data_storage = False
+        await super().disconnect(allow_autoreconnect)
 
     def run_gui(self):
         """
@@ -366,14 +371,12 @@ class AnimalWellContext(CommonContext):
             else:
                 self.bean_patcher.revert_tracker_patches()
 
-            used_berries_string = f"{self.slot}|used_berries"
-            used_firecrackers_string = f"{self.slot}|used_firecrackers"
             death_link_key = f"{self.slot}|death_link"
             Utils.async_start(self.update_death_link(self.slot_data.get("death_link", None) == 1))
             self.set_notify(death_link_key)
             Utils.async_start(self.send_msgs([{
                 "cmd": "Get",
-                "keys": [used_berries_string, used_firecrackers_string, death_link_key]
+                "keys": [death_link_key]
             }]))
             self.bean_patcher.save_team = args["team"]
             self.bean_patcher.save_slot = args["slot"]
@@ -1250,9 +1253,9 @@ class AWItems:
                 else:
                     # Berries
                     # null checking since it caused issues before
-                    if not self.big_blue_fruit:
+                    if self.big_blue_fruit is None:
                         self.big_blue_fruit = 0
-                    if not ctx.used_berries:
+                    if ctx.used_berries is None:
                         ctx.used_berries = 0
 
                     # sometimes used_berries ends up bigger than big_blue_fruit, same with firecrackers
@@ -1277,9 +1280,9 @@ class AWItems:
 
                     # Firecrackers
                     # null checking since it caused issues before
-                    if not self.firecracker_refill:
+                    if self.firecracker_refill is None:
                         self.firecracker_refill = 0
-                    if not ctx.used_firecrackers:
+                    if ctx.used_firecrackers is None:
                         ctx.used_firecrackers = 0
 
                     firecrackers_to_use = max(self.firecracker_refill - ctx.used_firecrackers, 0)
