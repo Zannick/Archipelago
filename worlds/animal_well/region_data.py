@@ -153,8 +153,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.location),
         lname.egg_iridescent:
             AWData(AWType.location, [[iname.remote]]),
-        lname.egg_ice:  # bubble long is annoying, maybe consider it harder?
-            AWData(AWType.location, [[iname.remote], [iname.bubble_long], [iname.disc_hop]]),
+        lname.egg_ice:  # can be done with single disc hops, but it's too many to not call it hard
+            AWData(AWType.location, [[iname.remote], [iname.bubble_long], [iname.disc_hop_hard]]),
         lname.egg_neon:
             AWData(AWType.location, [[iname.remote, iname.ball]]),
     },
