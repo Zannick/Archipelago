@@ -246,7 +246,6 @@ aw_option_groups = [
         ObscureTricks,
         PreciseTricks,
         TankingDamage,
-        WeirdTricks,
     ])
 ]
 
