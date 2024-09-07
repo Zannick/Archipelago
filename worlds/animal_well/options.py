@@ -131,6 +131,7 @@ class WheelTricks(Choice):
     option_advanced = 2
     default = 0
 
+
 class BallThrowing(Choice):
     """
     Include in logic using the ball to hit switches or buttons not ""designed"" for it.
@@ -147,6 +148,7 @@ class BallThrowing(Choice):
     option_expert = 3
     default = 0
 
+
 class ObscureTricks(Toggle):
     """
     Include a number of solutions to puzzles that are obscure or hard to understand.
@@ -154,6 +156,7 @@ class ObscureTricks(Toggle):
     """
     internal_name = "obscure_tricks"
     display_name = "Obscure Tricks"
+
 
 class PreciseTricks(Toggle):
     """
@@ -164,6 +167,7 @@ class PreciseTricks(Toggle):
     internal_name = "precise_tricks"
     display_name = "Precise Tricks"
 
+
 class TankingDamage(Toggle):
     """
     Include tricks which require you to voluntarily take damage in order to perform them.
@@ -171,6 +175,7 @@ class TankingDamage(Toggle):
     """
     internal_name = "tanking_damage"
     display_name = "Tanking Damage"
+
 
 class ExcludeSongChests(DefaultOnToggle):
     """
