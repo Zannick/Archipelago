@@ -143,7 +143,6 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
         for sublist in reqs
         if not (iname.water_bounce in sublist and not options.obscure_tricks)
     ]
-    
     reqs = [
         [None if item == iname.tanking_damage else item for item in sublist]
         for sublist in reqs
