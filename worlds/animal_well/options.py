@@ -160,9 +160,8 @@ class ObscureTricks(Toggle):
 
 class PreciseTricks(Toggle):
     """
-    Include a number of solutions to puzzles that are mechanically difficult to execute.
+    Include solutions to puzzles that are mechanically difficult to execute in logic.
     These tricks may require large amounts of attempts to get right, and there may be a higher than usual cost for failure.
-    Tricks which are already covered by other item-specific trick options are not included here.
     """
     internal_name = "precise_tricks"
     display_name = "Precise Tricks"
