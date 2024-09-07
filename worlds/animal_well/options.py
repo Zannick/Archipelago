@@ -152,7 +152,7 @@ class BallThrowing(Choice):
 class ObscureTricks(Toggle):
     """
     Include a number of solutions to puzzles that are obscure or hard to understand.
-    These tricks aren't necessarily difficult to perform once you know what they are. If they are difficult, you must also turn on the respective difficulty or trick setting to enable it.
+    These tricks won't be harder to perform than other tricks in logic once you know them.
     """
     internal_name = "obscure_tricks"
     display_name = "Obscure Tricks"
