@@ -10,7 +10,7 @@
 ## Configure Archipelago Options
 
 ### Configure Your YAML File and Generate a Randomized Game
-Note: You will need to use Archipelago version 0.5.0. You can find the Release Candidate pinned in the ap-core-dev chat in the Discord. If you want to host it on the website, you must use the archipelago.gg:24242 website.
+Note: You will need to use Archipelago version 0.5.0.
 
 Place the `animal_well.apworld` in your `Archipelago/lib/worlds` folder.
 Open up the Archipelago Launcher.
