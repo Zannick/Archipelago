@@ -228,12 +228,12 @@ class AnimalWellOptions(PerGameCommonOptions):
     obscure_tricks: ObscureTricks
     precise_tricks: PreciseTricks
     tanking_damage: TankingDamage
-    weird_tricks: WeirdTricks
     
     death_link: DeathLink
     start_inventory_from_pool: StartInventoryPool
 
     wheel_hopping: WheelHopping  # superseded by wheel_tricks, will be removed in a later update
+    weird_tricks: WeirdTricks  # superseded by multiple options, will be removed in a later update
 
 
 aw_option_groups = [
