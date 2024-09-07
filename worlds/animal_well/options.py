@@ -169,8 +169,8 @@ class PreciseTricks(Toggle):
 
 class TankingDamage(Toggle):
     """
-    Include tricks which require you to voluntarily take damage in order to perform them.
-    You may be expected to take up to three points of damage from any source. "Overtanking" with blue hearts will never be in logic.
+    Include tricks which require you to voluntarily take damage in order to perform them in logic.
+    You may be expected to take up to three points of damage to perform tricks enabled by this option.
     """
     internal_name = "tanking_damage"
     display_name = "Tanking Damage"
