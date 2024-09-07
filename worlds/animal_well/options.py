@@ -225,7 +225,6 @@ class AnimalWellOptions(PerGameCommonOptions):
     disc_hopping: DiscHopping
     wheel_tricks: WheelTricks
     ball_throwing: BallThrowing
-    wheel_hopping: WheelHopping
     obscure_tricks: ObscureTricks
     precise_tricks: PreciseTricks
     tanking_damage: TankingDamage
