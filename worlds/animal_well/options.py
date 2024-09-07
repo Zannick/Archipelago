@@ -146,7 +146,7 @@ class BallThrowing(Choice):
     option_simple = 1
     option_advanced = 2
     option_expert = 3
-    default = 0
+    default = 1
 
 
 class ObscureTricks(Toggle):
