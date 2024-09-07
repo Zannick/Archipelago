@@ -186,7 +186,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.egg_normal:  # hidden wall in lower left of first bubble room
             AWData(AWType.location),
         lname.egg_dazzle:  # little obstacle course, feels like the bubble jump tutorial?
-            AWData(AWType.location, [[iname.bubble], [iname.disc, iname.wheel], [iname.disc_hop_hard], [iname.wheel_hard]]),
+            AWData(AWType.location, [[iname.bubble], [iname.disc, iname.wheel], [iname.disc_hop_hard],
+                                     [iname.wheel_hard]]),
         rname.fish_tube_room:  # enter at the save room fish pipe, the rooms with all the fish pipes
             AWData(AWType.region, [[iname.bubble]]),
         lname.egg_sunset:  # break the spikes in the room to the right of the fish warp
@@ -418,7 +419,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.ball_trick_medium], [iname.bubble, iname.tanking_damage],
                                    [iname.disc, iname.tanking_damage, iname.precise_tricks]]),
         rname.bear_chameleon_room_2:
-            AWData(AWType.region, [[iname.bubble_long, iname.tanking_damage], [iname.disc_hop_hard, iname.tanking_damage]]),
+            AWData(AWType.region, [[iname.bubble_long, iname.tanking_damage],
+                                   [iname.disc_hop_hard, iname.tanking_damage]]),
     },
     rname.bear_crow_rooms: {
         rname.bear_shadow_egg_spot:  # get across the room with the lifters and the miasma
@@ -470,7 +472,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
     },
     rname.bear_upper_phone_room: {
         rname.bear_above_chameleon:
-            AWData(AWType.region, [[iname.yoyo], [iname.ball, iname.ball_trick_medium, iname.obscure_tricks], [iname.slink, iname.bubble, iname.obscure_tricks]]),
+            AWData(AWType.region, [[iname.yoyo], [iname.ball, iname.ball_trick_medium, iname.obscure_tricks],
+                                   [iname.slink, iname.bubble, iname.obscure_tricks]]),
     },
     rname.bear_above_chameleon: {  # includes the screens to the right of it
         lname.egg_swan:  # wake one chinchilla, lure upper one right, run left
