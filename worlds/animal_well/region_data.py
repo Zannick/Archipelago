@@ -205,7 +205,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
     },
     rname.fish_west: {
         rname.fish_wand_pit: 
-            AWData(AWType.region, [[iname.bubble], [iname.disc], [iname.wheel]]),
+            AWData(AWType.region, [[iname.bubble], [iname.disc], [iname.wheel, iname.obscure_tricks]]),
         lname.egg_ancient:  # one room up and left of save point, vines in top right
         # single bubble possible, but it's much tighter than doing bubble_short, so it's not logical
             AWData(AWType.location, [[iname.bubble_short], [iname.disc_hop_hard], 
