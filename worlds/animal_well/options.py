@@ -151,7 +151,7 @@ class BallThrowing(Choice):
 
 class ObscureTricks(Toggle):
     """
-    Include a number of solutions to puzzles that are obscure or hard to understand.
+    Include solutions to puzzles that are obscure or hard to understand in logic.
     These tricks won't be harder to perform than other tricks in logic once you know them.
     """
     internal_name = "obscure_tricks"
