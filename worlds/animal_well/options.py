@@ -134,11 +134,11 @@ class WheelTricks(Choice):
 
 class BallThrowing(Choice):
     """
-    Include in logic using the ball to hit switches or buttons not ""designed"" for it.
-    Off means the ball will rarely be used for anything other than breaking blocks, spikes or guard shields.
-    Simple means the ball can be used to hit easy targets without any real rebound, setup or moving. Most ""yoyo chute"" buttons are included here.
-    Advanced means hitting your target may require bouncing off a wall, or moving while throwing to adjust momentum or get a good angle.
-    Expert includes any more complicated tricks, including those that require specific setups or getting lucky.
+    Include using the ball to hit switches or buttons not "designed" for it in logic.
+    Off means the ball will rarely be used for anything other than breaking blocks, spikes, or guard shields.
+    Simple means the ball can be used to hit easy targets without any real rebound, setup, or movement. Most "yoyo chute" buttons are included here.
+    Advanced means hitting your target may require bouncing off a wall or moving while throwing to adjust momentum/angle.
+    Expert includes more complicated tricks including those that require specific setups or getting lucky.
     """									
     internal_name = "ball_throwing"
     display_name = "Ball Throwing"
