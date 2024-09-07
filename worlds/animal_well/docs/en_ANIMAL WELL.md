@@ -21,8 +21,7 @@ There are around 100 checks in ANIMAL WELL. The amount varies based on a few opt
 When we have finalized these options, this doc will be updated to reflect the actual numbers.
 
 ## What do items from other worlds look like in ANIMAL WELL?
-Currently, the appearance of items found in chests matches their vanilla contents. You will need to look at the Client to see what was in the chest.
-This will be revised later on.
+They just look like the standard chests.
 
 ## Is there a tracker pack?
 There is a [Poptracker Pack](https://github.com/SporyTike/ANIMAL-WELL-AP-Tracker/releases/latest) which was made by SporyTike.
