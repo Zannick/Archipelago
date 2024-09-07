@@ -460,7 +460,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
     },
     rname.bear_upper_phone_room: {
         rname.bear_above_chameleon:
-            AWData(AWType.region, [[iname.yoyo], [iname.ball, iname.ball_trick_medium, iname.obscure_tricks]]),
+            AWData(AWType.region, [[iname.yoyo], [iname.ball, iname.ball_trick_medium, iname.obscure_tricks], [iname.slink, iname.bubble, iname.obscure_tricks]]),
     },
     rname.bear_above_chameleon: {  # includes the screens to the right of it
         lname.egg_swan:  # wake one chinchilla, lure upper one right, run left
