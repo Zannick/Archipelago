@@ -198,6 +198,7 @@ class WheelHopping(Choice):
     default = 0
     visibility = Visibility.none
 
+
 class WeirdTricks(Toggle):
     """
     Included temporarily for backward compatibility.
@@ -206,6 +207,7 @@ class WeirdTricks(Toggle):
     internal_name = "weird_tricks"
     display_name = "Weird Tricks"
     visibility = Visibility.none
+
 
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):

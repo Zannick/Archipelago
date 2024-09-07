@@ -84,14 +84,9 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
     # these convert [[wheel_hop], [disc]] to either [[wheel], [disc]] or [[disc]]
     # and convert [[disc_hop_hard]] to either [[disc]] or []
     reqs = [
-        [iname.wheel if item == iname.wheel_hop else item for item in sublist]
+        [iname.wheel if item in [iname.wheel_hop, iname.wheel_climb] else item for item in sublist]
         for sublist in reqs
-        if not (iname.wheel_hop in sublist and not options.wheel_tricks)  
-    ]
-    reqs = [
-        [iname.wheel if item == iname.wheel_climb else item for item in sublist]
-        for sublist in reqs
-        if not (iname.wheel_climb in sublist and not options.wheel_tricks)
+        if not (iname.wheel_hop in sublist and not options.wheel_tricks)
     ]
     reqs = [
         [iname.wheel if item == iname.wheel_hard else item for item in sublist]
@@ -116,7 +111,7 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
     reqs = [
         [iname.ball if item == iname.ball_trick_medium else item for item in sublist]
         for sublist in reqs
-        if not (iname.ball_trick_medium in sublist and options.ball_throwing not in (BallThrowing.option_advanced, BallThrowing.option_expert))
+        if not (iname.ball_trick_medium in sublist and options.ball_throwing < BallThrowing.option_advanced)
     ]
     reqs = [
         [iname.ball if item == iname.ball_trick_hard else item for item in sublist]
@@ -142,11 +137,6 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
         [None if item == iname.water_bounce else item for item in sublist]
         for sublist in reqs
         if not (iname.water_bounce in sublist and not options.obscure_tricks)
-    ]
-    reqs = [
-        [None if item == iname.tanking_damage else item for item in sublist]
-        for sublist in reqs
-        if not (iname.tanking_damage in sublist and not options.tanking_damage)
     ]
     return reqs
 
