@@ -71,6 +71,15 @@ class CandleChecks(Toggle):
     display_name = "Candle Checks"
 
 
+class Fruitsanity(Toggle):
+    """
+    Each fruit sends a check after being eaten.
+    Tip: Attempting to eat a fruit 3 times will eat it even if you have full health.
+    """
+    internal_name = "fruitsanity"
+    display_name = "Fruitsanity"
+
+
 class KeyRing(DefaultOnToggle):
     """
     Have one keyring which unlocks all normal key doors instead of individual key items.
@@ -218,6 +227,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     candle_checks: CandleChecks
     bunnies_as_checks: BunniesAsChecks
     bunny_warps_in_logic: BunnyWarpsInLogic
+    fruitsanity: Fruitsanity
     exclude_song_chests: ExcludeSongChests
     random_final_egg_location: FinalEggLocation
     
@@ -259,5 +269,6 @@ aw_option_presets: Dict[str, Dict[str, Any]] = {
         "obscure_tricks": ObscureTricks.option_true,
         "precise_tricks": PreciseTricks.option_true,
         "tanking_damage": TankingDamage.option_true,
+        "fruitsanity": Fruitsanity.option_true,
     },
 }

@@ -178,6 +178,7 @@ class AnimalWellWorld(World):
             "bunnies_as_checks",
             "bunny_warps_in_logic",
             "candle_checks",
+            "fruitsanity",
             "bubble_jumping",
             "disc_hopping",
             "wheel_tricks",
