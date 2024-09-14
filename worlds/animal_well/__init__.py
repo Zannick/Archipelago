@@ -175,13 +175,19 @@ class AnimalWellWorld(World):
             "eggs_needed",
             "key_ring",
             "matchbox",
+
+            "candle_checks",
             "bunnies_as_checks",
             "bunny_warps_in_logic",
-            "candle_checks",
+            "exclude_song_chests",
+
             "bubble_jumping",
             "disc_hopping",
             "wheel_tricks",
-            "weird_tricks",
-            "exclude_song_chests",
+            "ball_throwing",
+            "obscure_tricks",
+            "precise_tricks",
+            "tanking_damage",
+
             "death_link",
         )
