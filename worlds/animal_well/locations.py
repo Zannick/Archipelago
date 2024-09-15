@@ -11,12 +11,14 @@ class ByteSect(IntEnum):
     house_key = 5
     fruits = 6
 
+
 class AWTracker(NamedTuple):
-    tile: int
+    tile: int  # in maxwell, this is the first number of ID when hovering over something
     stamp: int = 0
     stamp_x: int = 0
     stamp_y: int = 0
     index: int = 0
+
 
 class AWLocationData(NamedTuple):
     offset: Optional[int]  # location ID offset
@@ -186,10 +188,11 @@ location_table: Dict[str, AWLocationData] = {
     lname.mama_cha.value: AWLocationData(131, ByteSect.items, 10, [], AWTracker(811)),
 
     # fruits
-    lname.fruit_0.value: AWLocationData(1000, ByteSect.fruits, 0, ["Fruits"]),
-    lname.fruit_1.value: AWLocationData(1001, ByteSect.fruits, 1, ["Fruits"]),
+    # 130 for regular fruit, 174 for blue, 175 for big blue
+    lname.fruit_0.value: AWLocationData(1000, ByteSect.fruits, 0, ["Fruits"], AWTracker(175, 0, 0, 0, 0)),
+    lname.fruit_1.value: AWLocationData(1001, ByteSect.fruits, 1, ["Fruits"], AWTracker(175, 0, 0, 0, 1)),
     lname.fruit_2.value: AWLocationData(1002, ByteSect.fruits, 2, ["Fruits"]),
-    lname.fruit_3.value: AWLocationData(1003, ByteSect.fruits, 3, ["Fruits"]),
+    lname.fruit_3.value: AWLocationData(1003, ByteSect.fruits, 3, ["Fruits"], AWTracker(174, 0, 0, 0, 0)),
     lname.fruit_4.value: AWLocationData(1004, ByteSect.fruits, 4, ["Fruits"]),
     lname.fruit_5.value: AWLocationData(1005, ByteSect.fruits, 5, ["Fruits"]),
     lname.fruit_6.value: AWLocationData(1006, ByteSect.fruits, 6, ["Fruits"]),
@@ -261,7 +264,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.fruit_72.value: AWLocationData(1072, ByteSect.fruits, 72, ["Fruits"]),
     lname.fruit_73.value: AWLocationData(1073, ByteSect.fruits, 73, ["Fruits"]),
     lname.fruit_74.value: AWLocationData(1074, ByteSect.fruits, 74, ["Fruits"]),
-    lname.fruit_75.value: AWLocationData(1075, ByteSect.fruits, 75, ["Fruits"]),
+    lname.fruit_75.value: AWLocationData(1075, ByteSect.fruits, 75, ["Fruits"], AWTracker(175, 0, 0, 0, 2)),
     lname.fruit_76.value: AWLocationData(1076, ByteSect.fruits, 76, ["Fruits"]),
     lname.fruit_77.value: AWLocationData(1077, ByteSect.fruits, 77, ["Fruits"]),
     lname.fruit_78.value: AWLocationData(1078, ByteSect.fruits, 78, ["Fruits"]),
@@ -291,7 +294,7 @@ location_table: Dict[str, AWLocationData] = {
     lname.fruit_102.value: AWLocationData(1102, ByteSect.fruits, 102, ["Fruits"]),
     lname.fruit_103.value: AWLocationData(1103, ByteSect.fruits, 103, ["Fruits"]),
     lname.fruit_104.value: AWLocationData(1104, ByteSect.fruits, 104, ["Fruits"]),
-    lname.fruit_105.value: AWLocationData(1105, ByteSect.fruits, 105, ["Fruits"]),
+    lname.fruit_105.value: AWLocationData(1105, ByteSect.fruits, 105, ["Fruits"], AWTracker(175, 0, 0, 0, 3)),
     lname.fruit_106.value: AWLocationData(1106, ByteSect.fruits, 106, ["Fruits"]),
     lname.fruit_107.value: AWLocationData(1107, ByteSect.fruits, 107, ["Fruits"]),
     lname.fruit_108.value: AWLocationData(1108, ByteSect.fruits, 108, ["Fruits"]),

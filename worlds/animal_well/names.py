@@ -466,10 +466,10 @@ class LocationNames(str, Enum):
     victory_first = "First Victory"
 
     # fruits, by row and column, top left room is R1C1
-    fruit_0 = "Fruit R1C1a"
-    fruit_1 = "Fruit R1C1b"
+    fruit_0 = "Fruit R1C1a"  # big blue fruit, disc spike room
+    fruit_1 = "Fruit R1C1b"  # big blue fruit, disc spike room
     fruit_2 = "Fruit R1C3"
-    fruit_3 = "Fruit R1C4"
+    fruit_3 = "Fruit R1C4"  # blue fruit
     fruit_4 = "Fruit R1C6a"
     fruit_5 = "Fruit R1C6b"
     fruit_6 = "Fruit R1C7"
@@ -541,7 +541,7 @@ class LocationNames(str, Enum):
     fruit_72 = "Fruit R9C3b"
     fruit_73 = "Fruit R9C4"
     fruit_74 = "Fruit R9C5"
-    fruit_75 = "Fruit R9C7"
+    fruit_75 = "Fruit R9C7"  # big blue fruit, right of flamingos
     fruit_76 = "Fruit R9C9"
     fruit_77 = "Fruit R9C13a"
     fruit_78 = "Fruit R9C13b"
@@ -571,7 +571,7 @@ class LocationNames(str, Enum):
     fruit_102 = "Fruit R13C6c"
     fruit_103 = "Fruit R14C8"
     fruit_104 = "Fruit R14C9"
-    fruit_105 = "Fruit R14C10"
+    fruit_105 = "Fruit R14C10"  # big blue fruit, in manticore area
     fruit_106 = "Fruit R14C13"
     fruit_107 = "Fruit R14C16"
     fruit_108 = "Fruit R15C3"
