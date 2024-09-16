@@ -519,7 +519,7 @@ class LocationNames(str, Enum):
     fruit_50 = "Fruit R6C14b"
     fruit_51 = "Fruit R6C15"
     fruit_52 = "Fruit R6C16"
-    fruit_53 = "Fruit R7C1a"  # blue fruit todo: verify this is the right one
+    fruit_53 = "Fruit R7C1a"  # blue fruit, verified
     fruit_54 = "Fruit R7C1b"
     fruit_55 = "Fruit R7C2"
     fruit_56 = "Fruit R7C3a"  # blue fruit, verified
@@ -538,7 +538,7 @@ class LocationNames(str, Enum):
     fruit_69 = "Fruit R9C1"
     fruit_70 = "Fruit R9C2"
     fruit_71 = "Fruit R9C3a"
-    fruit_72 = "Fruit R9C3b"  # blue fruit todo: verify
+    fruit_72 = "Fruit R9C3b"  # blue fruit, verified
     fruit_73 = "Fruit R9C4"
     fruit_74 = "Fruit R9C5"
     fruit_75 = "Fruit R9C7"  # big blue fruit, right of flamingos
@@ -551,10 +551,10 @@ class LocationNames(str, Enum):
     fruit_82 = "Fruit R10C4a"
     fruit_83 = "Fruit R10C4b"  # blue fruit
     fruit_84 = "Fruit R10C12"
-    fruit_85 = "Fruit R10C13a"  # blue fruit todo: verify
+    fruit_85 = "Fruit R10C13a"  # blue fruit, verified
     fruit_86 = "Fruit R10C13b"
     fruit_87 = "Fruit R11C3"
-    fruit_88 = "Fruit R11C10a"  # blue fruit todo: verify
+    fruit_88 = "Fruit R11C10a"  # blue fruit, verified
     fruit_89 = "Fruit R11C10b"
     fruit_90 = "Fruit R11C11"  # blue fruit
     fruit_91 = "Fruit R11C12"
@@ -566,7 +566,7 @@ class LocationNames(str, Enum):
     fruit_97 = "Fruit R12C15"
     fruit_98 = "Fruit R12C16"
     fruit_99 = "Fruit R13C2"  # blue fruit, beware of whale
-    fruit_100 = "Fruit R13C6a"  # blue fruit todo: verify
+    fruit_100 = "Fruit R13C6a"  # blue fruit, verified
     fruit_101 = "Fruit R13C6b"
     fruit_102 = "Fruit R13C6c"
     fruit_103 = "Fruit R14C8"
@@ -580,4 +580,4 @@ class LocationNames(str, Enum):
     fruit_111 = "Fruit R16C6"  # blue fruit, right next to fireworks box
     fruit_112 = "Fruit R16C15"
     fruit_113 = "Fruit R16C16a"
-    fruit_114 = "Fruit R16C16b"  # blue fruit todo: verify
+    fruit_114 = "Fruit R16C16b"  # blue fruit, verified
