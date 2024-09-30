@@ -987,7 +987,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.frog_near_wombat:  # may have to go a few screens away to hit a switch, but you don't need items
             AWData(AWType.region),
         lname.fruit_92:
-            AWData(AWType.location, [[iname.can_break_spikes]], loc_type=LocType.fruit),
+            AWData(AWType.location, [[iname.disc], [iname.ball], [iname.yoyo], [iname.top]], loc_type=LocType.fruit),
         lname.egg_bubble:  # top right of room with the mouse ghost that throws its head
             AWData(AWType.location, [[iname.bubble], [iname.disc]]),
         rname.frog_pre_ostrich_attack:
