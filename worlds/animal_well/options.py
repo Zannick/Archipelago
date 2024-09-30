@@ -73,7 +73,7 @@ class CandleChecks(Toggle):
 
 class Fruitsanity(Toggle):
     """
-    Each fruit sends a check after being eaten.
+    All 115 fruits send a check after being eaten.
     Tip: Attempting to eat a fruit 3 times will eat it even if you have full health.
     """
     internal_name = "fruitsanity"
