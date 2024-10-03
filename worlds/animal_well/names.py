@@ -494,7 +494,7 @@ class LocationNames(str, Enum):
     fruit_25 = "Blue Fruit in Kangaroo Room Hand - R4C1a"  # blue fruit upper
     fruit_26 = "Blue Fruit in Kangaroo Room Tail - R4C1b"  # blue fruit lower
     fruit_27 = "Pink Fruit in Kangaroo Room Foot - R4C1c"
-    fruit_28 = "Pink Fruit by Turtle Flute Pool - R4C6"
+    fruit_28 = "Pink Fruit by Turtle Pool - R4C6"
     fruit_29 = "Pink Fruit Left of Doodle Bunny - R4C11"
     fruit_30 = "Pink Fruit by Statue Bunny - R4C13"
     fruit_31 = "Blue Fruit in Capybara Room Top Left - R4C15a"  # blue fruit top left
