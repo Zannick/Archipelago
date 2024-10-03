@@ -503,7 +503,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.top]]),
     },
     rname.bear_truth_egg_spot: {
-        lname.fruit_46:
+        lname.fruit_45:
             AWData(AWType.location, loc_type=LocType.fruit),
         lname.egg_truth:
             AWData(AWType.location),
@@ -916,7 +916,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.remote]]),
         rname.dog_elevator_upper:
             AWData(AWType.region, [[iname.dog_wheel_flip]]),
-        lname.fruit_45:
+        lname.fruit_46:
             AWData(AWType.location, loc_type=LocType.fruit),
         rname.match_above_egg_room:  # if the switch is flipped right you can just get this chest
             AWData(AWType.region),
