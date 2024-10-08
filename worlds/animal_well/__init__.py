@@ -178,6 +178,7 @@ class AnimalWellWorld(World):
 
             "candle_checks",
             "bunnies_as_checks",
+            "fruitsanity",
             "bunny_warps_in_logic",
             "exclude_song_chests",
 

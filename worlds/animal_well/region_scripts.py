@@ -184,6 +184,8 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                     continue
                 if not options.candle_checks and data.loc_type == LocType.candle:
                     continue
+                if not options.fruitsanity and data.loc_type == LocType.fruit:
+                    continue
                 # not shuffling these yet
                 if data.loc_type == LocType.figure:
                     continue

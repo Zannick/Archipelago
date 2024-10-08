@@ -7,7 +7,7 @@ from .region_scripts import helper_reference
 from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
 from .options import (Goal, EggsNeeded, KeyRing, Matchbox, BunniesAsChecks, BunnyWarpsInLogic, CandleChecks,
                       BubbleJumping, DiscHopping, WheelTricks, ExcludeSongChests, BallThrowing, TankingDamage,
-                      ObscureTricks, PreciseTricks)
+                      ObscureTricks, PreciseTricks, Fruitsanity)
 
 
 class CheckStatus(IntEnum):
@@ -49,6 +49,7 @@ class AnimalWellTracker:
         ObscureTricks.internal_name: 0,
         PreciseTricks.internal_name: 0,
         TankingDamage.internal_name: 0,
+        Fruitsanity.internal_name: 0,
     }
 
     # key is location name, value is its spot status. Can change the key later to something else if wanted
@@ -243,7 +244,12 @@ class AnimalWellTracker:
                     # we ignore these and rely on the event version
                     elif destination_data.loc_type == LocType.candle:
                         self.check_logic_status[destination_name] = CheckStatus.dont_show.value
+                    elif destination_data.loc_type == LocType.fruit:
+                        if not self.player_options[Fruitsanity.internal_name]:
+                            self.check_logic_status[destination_name] = CheckStatus.dont_show.value
                     # if it's excluded due to the option, don't show it
                     elif (self.player_options[ExcludeSongChests.internal_name] == ExcludeSongChests.option_true 
-                              and destination_name in [lname.wheel_chest.value, lname.key_office.value]):
+                          and destination_name in [lname.wheel_chest.value, lname.key_office.value]):
                         self.check_logic_status[destination_name] = CheckStatus.dont_show.value
+
+

@@ -670,7 +670,9 @@ class AWLocations:
                     ByteSect.candles.value:
                         int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x1E0, 2), byteorder="little"),
                     ByteSect.house_key.value:
-                        int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x21C, 2), byteorder="little")
+                        int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x21C, 2), byteorder="little"),
+                    ByteSect.fruits.value:
+                        int.from_bytes(ctx.process_handle.read_bytes(slot_address + 0x170, 16), byteorder="little"),
                 }
 
                 for loc_name, status in self.loc_statuses.items():
