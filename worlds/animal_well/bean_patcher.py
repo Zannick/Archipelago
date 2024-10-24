@@ -214,58 +214,78 @@ class Patch(Patch):
 
 # region FunctionOffsets
 # Accurate as of AW file version 1.0.0.18
-draw_small_text: int = 0x14006E3F0
-draw_big_text: int = 0x14006DE30
-draw_symbol: int = 0x14006A6C0
-draw_sprite: int = 0x14001AEC0
-get_sprite: int = 0x140063CA0
-push_shader_to_stack: int = 0x140017840
-pop_shader_from_stack: int = 0x1400178A0
-push_color_to_stack: int = 0x1400177D0
-pop_color_from_stack: int = 0x140017830
-pop_from_position_stack: int = 0x140017920
-set_tall_text_mode: int = 0x14006DC00
-set_current_color: int = 0x1400177B0
-set_current_shader: int = 0x14001A280
+# draw_small_text: int = 0x14006E3F0
+# draw_big_text: int = 0x14006DE30
+# draw_symbol: int = 0x14006A6C0
+# draw_sprite: int = 0x14001AEC0
+# get_sprite: int = 0x140063CA0
+# push_shader_to_stack: int = 0x140017840
+# pop_shader_from_stack: int = 0x1400178A0
+# push_color_to_stack: int = 0x1400177D0
+# pop_color_from_stack: int = 0x140017830
+# pop_from_position_stack: int = 0x140017920
+# set_tall_text_mode: int = 0x14006DC00
+# set_current_color: int = 0x1400177B0
+# set_current_shader: int = 0x14001A280
+# get_key_pressed: int = 0x140011C70
+# get_gamepad_button_pressed: int = 0x140011EA0
+# get_an_item: int = 0x1400C15C0
+# warp: int = 0x140074DD0
+# update_player_state: int = 0x1400662F0
+
+# Accurate as of AW file version 1.0.0.20
+draw_small_text: int = 0x14006E6F0
+draw_big_text: int = 0x14006E130
+draw_symbol: int = 0x14006A9B0 # jumps to 0x14001A1C0
+draw_sprite: int = 0x14001B0F0
+get_sprite: int = 0x140063FA0 # jumps to 0x14001A850
+push_shader_to_stack: int = 0x140017A70
+pop_shader_from_stack: int = 0x140017AD0
+push_color_to_stack: int = 0x140017A00
+pop_color_from_stack: int = 0x140017A60
+pop_from_position_stack: int = 0x140017B50
+set_tall_text_mode: int = 0x14006DF00
+set_current_color: int = 0x1400179E0
+set_current_shader: int = 0x14001A4B0
 get_key_pressed: int = 0x140011C70
 get_gamepad_button_pressed: int = 0x140011EA0
-get_an_item: int = 0x1400C15C0
-warp: int = 0x140074DD0
-update_player_state: int = 0x1400662F0
+get_an_item: int = 0x1400C1870
+warp: int = 0x140075080
+update_player_state: int = 0x1400665F0
 # endregion
 
 # region OtherOffsets
 STEP_AND_TIME_DISPLAY_ORIGINAL_VALUES = {
-    0x504fb: 2.0,
-    0x504ff: 2.0,
-    0x5053e: 6,
-    0x50543: 6,
-    0x5055a: 7,
-    0x5055f: 5,
-    0x50417: 310.0,
-    0x5041b: 3.0,
-    0x5044f: 280,
-    0x50454: 5,
-    0x50481: 278,
-    0x50486: 6,
-    0x504b3: 279,
-    0x504b8: 5
+    0x507A9 + 2: 2.0, # was 0x504fb
+    0x507A9 + 6: 2.0, # was 0x504ff
+    0x507ED + 1: 6, # was 0x5053e
+    0x507F2 + 1: 6, # was 0x50543
+    0x50809 + 1: 7, # was 0x5055a
+    0x5080E + 1: 5, # was 0x5055f
+    0x506C5 + 2: 310.0, # was 0x50417
+    0x506C5 + 6: 3.0, # was 0x5041b
+    0x506FE + 1: 280, # was 0x5044f
+    0x50703 + 1: 5, # was 0x50454
+    0x50730 + 1: 278, # was 0x50481
+    0x50735 + 1: 6, # was 0x50486
+    0x50762 + 1: 279, # was 0x504b3
+    0x50767 + 1: 5 # was 0x504b8
 }
 STEP_AND_TIME_DISPLAY_UPDATED_VALUES = {
-    0x504fb: 2.0,
-    0x504ff: 2.0 + 5,
-    0x5053e: 6,
-    0x50543: 6 + 5,
-    0x5055a: 7,
-    0x5055f: 5 + 5,
-    0x50417: 310.0,
-    0x5041b: 3.0 + 5,
-    0x5044f: 280,
-    0x50454: 5 + 5,
-    0x50481: 278,
-    0x50486: 6 + 5,
-    0x504b3: 279,
-    0x504b8: 5 + 5
+    0x507A9 + 2: 2.0, # was 0x504fb
+    0x507A9 + 6: 2.0 + 5, # was 0x504ff
+    0x507ED + 1: 6, # was 0x5053e
+    0x507F2 + 1: 6 + 5, # was 0x50543
+    0x50809 + 1: 7, # was 0x5055a
+    0x5080E + 1: 5 + 5, # was 0x5055f
+    0x506C5 + 2: 310.0, # was 0x50417
+    0x506C5 + 6: 3.0 + 5, # was 0x5041b
+    0x506FE + 1: 280, # was 0x5044f
+    0x50703 + 1: 5 + 5, # was 0x50454
+    0x50730 + 1: 278, # was 0x50481
+    0x50735 + 1: 6 + 5, # was 0x50486
+    0x50762 + 1: 279, # was 0x504b3
+    0x50767 + 1: 5 + 5 # was 0x504b8
 }
 # endregion
 
@@ -461,7 +481,7 @@ class BeanPatcher:
 
         self.module_base = self.aw_module.lpBaseOfDll
 
-        application_state_pointer_address = self.module_base + 0x02BD5308
+        application_state_pointer_address = self.module_base + 0x2D255F8 # was 2BD5308
         if self.log_debug_info:
             self.log_info(f"Attempting to find start address via pointer at {hex(application_state_pointer_address)}")
 
@@ -565,7 +585,7 @@ class BeanPatcher:
         """
             This patch displays the text "AP Randomizer" on the title screen.
         """
-        main_menu_draw_injection_address = self.module_base + 0x1f025
+        main_menu_draw_injection_address = self.module_base + 0x1F255 # 0x1f025
         self.main_menu_draw_string_addr = self.custom_memory_current_offset
         self.custom_memory_current_offset += TITLE_SCREEN_MAX_TEXT_LENGTH
         main_menu_draw_routine_address = self.custom_memory_current_offset
@@ -606,7 +626,7 @@ class BeanPatcher:
         It additionally pushes the steps and time counters lower on the screen to make room for the new text display.
         This patch can also be extended in the future to display other things in-game.
         """
-        game_draw_injection_address = self.module_base + 0x5068b
+        game_draw_injection_address = self.module_base + 0x5093B #0x5068b
         self.game_draw_routine_string_addr = self.custom_memory_current_offset
         self.custom_memory_current_offset += self.game_draw_routine_string_size + 0x10
 
@@ -686,7 +706,7 @@ class BeanPatcher:
             # 0x69 -> blocked, 0x72 -> wake up, 0x73 -> locked, 0xae -> beacon, 0xb2 -> travel
             .mov_to_rax(0xc)
             .mov_rax_to_rsp_offset(0x68)
-            .jmp_far(0x140043cdf)  # 84 -> control panel
+            .jmp_far(self.module_base + 0x43F6F)  # 84 -> control panel)  # was 0x140043cdf
             .nop(0x10))
         self.custom_memory_current_offset += len(pause_menu_patch_update_option_text)
         pause_menu_resume_and_warp_patch = (
@@ -697,26 +717,26 @@ class BeanPatcher:
             .warp(self.player_address, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
             .pop_r9().pop_r8().pop_rdx().pop_rcx()
             .mov_to_rax(self.application_state_address)
-            .jmp_far(0x140044223)
+            .jmp_far(self.module_base + 0x444B3) # was 0x44223
             .nop(0x10))
         self.custom_memory_current_offset += len(pause_menu_resume_and_warp_patch)
         pause_menu_patch_update_option_text_trampoline = (
-            Patch("pause_menu_patch_update_option_text_trampoline", 0x140043cc4, self.process)
+            Patch("pause_menu_patch_update_option_text_trampoline", self.module_base + 0x43F54, self.process) # was 43CC4
             .jmp_far(pause_menu_patch_update_option_text.base_address)
             .nop(0xd))
         warp_to_hub_text = "warp to hub".encode("utf-16le") + b"\x00\x00"
         self.process.write_bytes(self.custom_memory_current_offset, warp_to_hub_text, len(warp_to_hub_text))
-        self.process.write_bytes(0x142D93F00, self.custom_memory_current_offset.to_bytes(8, "little", signed=False), 8)
+        self.process.write_bytes(self.module_base + 0x2D9AF00, self.custom_memory_current_offset.to_bytes(8, "little", signed=False), 8) # was 2D93F00
         self.custom_memory_current_offset += len(warp_to_hub_text)
         pause_menu_increase_option_count_1_patch = (
-            Patch("pause_menu_increase_option_count_1_patch", 0x140043cf7, self.process)
+            Patch("pause_menu_increase_option_count_1_patch", self.module_base + 0x43F85, self.process) # was 0x43cf7
             .add_bytes(b"\x02"))
         pause_menu_increase_option_count_2_patch = (
-            Patch("pause_menu_increase_option_count_2_patch", 0x140044052, self.process)
+            Patch("pause_menu_increase_option_count_2_patch", self.module_base + 0x442DF, self.process) # was 44052
             .add_bytes(b"\x03"))
         pause_menu_on_confirm_patch = (
             Patch("pause_menu_on_confirm_patch", self.custom_memory_current_offset, self.process)
-            .call_far(0x14006ec30)
+            .call_far(self.module_base + 0x6EF30) # was 0x6ec30
             .push_rcx().push_rdx().push_r8().push_r9()
             .mov_from_absolute_address_to_eax(self.application_state_address + 0x93610)
             .cmp_eax(2)
@@ -724,12 +744,12 @@ class BeanPatcher:
             .pop_r9().pop_r8().pop_rdx().pop_rcx()
             .mov_rdx(self.application_state_address)
             .cmp_ebx(0xe10)
-            .jl_far(0x140044391)
-            .jmp_far(0x14004435b)
+            .jl_far(self.module_base + 0x44621) # was 0x140044391
+            .jmp_far(self.module_base + 0x445EB) # was 0x14004435b
             .nop(0x10))
         self.custom_memory_current_offset += len(pause_menu_on_confirm_patch)
         pause_menu_patch_on_confirm_trampoline_patch = (
-            Patch("pause_menu_patch_on_confirm_trampoline_patch", 0x140044347, self.process)
+            Patch("pause_menu_patch_on_confirm_trampoline_patch", self.module_base + 0x445D7, self.process) # was 0x140044347
             .jmp_far(pause_menu_on_confirm_patch.base_address)
             .nop(6))
         if self.log_debug_info:
@@ -816,16 +836,16 @@ class BeanPatcher:
                               .pop_r9().pop_r8().pop_rdx().pop_rcx()
                               .nop(0x80)
                               .mov_edi(0x841c)
-                              .mov_from_absolute_address_to_rax(0x1420949D0).movq_rax_to_xmm6()
-                              .mov_from_absolute_address_to_rax(0x1420949F4).movq_rax_to_xmm7()
-                              .jmp_far(0x14003B7FD)
+                              .mov_from_absolute_address_to_rax(self.module_base + 0x9A9D0).movq_rax_to_xmm6() # was 0x20949D0
+                              .mov_from_absolute_address_to_rax(self.module_base + 0x9A9F4).movq_rax_to_xmm7() # was 0x20949F4
+                              .jmp_far(self.module_base + 0x3BA3D) # was 0x14003B7FD
                               )
         self.custom_memory_current_offset += len(input_reader_patch)
         if self.log_debug_info:
             self.log_info(f"Applying input_reader_patch...\n{input_reader_patch}")
         if input_reader_patch.apply():
             self.revertable_patches.append(input_reader_patch)
-        input_reader_trampoline = (Patch("input_reader_trampoline", 0x14003B7D1, self.process)
+        input_reader_trampoline = (Patch("input_reader_trampoline", self.module_base + 0x3BA11, self.process) # was 0x14003B7D1
                                    .jmp_far(input_reader_patch.base_address).nop(2))
         if self.log_debug_info:
             self.log_info(f"Applying input_reader_trampoline...\n{input_reader_trampoline}")
@@ -836,8 +856,8 @@ class BeanPatcher:
         """
         Disables the built-in anti-cheat that rolls back changes that occur to the player outside the frame function.
         """
-        frame_anticheat_address = self.module_base + 0x6048A
-        frame_anticheat_complete_address = self.module_base + 0x605B3
+        frame_anticheat_address = self.module_base + 0x6072F # 0x6048A
+        frame_anticheat_complete_address = self.module_base + 0x60863 # 0x605B3
         disable_anticheat_patch = Patch(
             "disable_anti-cheat", frame_anticheat_address, self.process).jmp_far(frame_anticheat_complete_address)
         if self.log_debug_info:
@@ -899,28 +919,28 @@ class BeanPatcher:
         but reducing situations where you might be performing a trick when receiving a piece of equipment from
         another player"s game.
         """
-        disable_chest_item_patch = Patch("disable_chest_item", 0x1400c2871, self.process).xor_r8d_r8d().xor_edx_edx().nop(3)
-        disable_item_get_dialog_patch = Patch("disable_item_get_dialog", 0x1400c2161, self.process).nop(5)
+        disable_chest_item_patch = Patch("disable_chest_item", self.module_base + 0xC2B21, self.process).xor_r8d_r8d().xor_edx_edx().nop(3) # was 0x1400c2871
+        disable_item_get_dialog_patch = Patch("disable_item_get_dialog", self.module_base + 0xC2411, self.process).nop(5) # was 0x1400c2161
         # match, pencil, stethoscope, officeKey, stamps, pedometer, rabbitFig, mockDisc, cake, regularKey, stopwatch, sMedal, eMedal, questionKey
-        disable_egg_get_dialog_patch = Patch("disable_egg_get_dialog", 0x1400c24a3, self.process).nop(5)
-        disable_lantern_get_dialog_patch = Patch("disable_lantern_get_dialog", 0x1400c1c82, self.process).nop(5)
-        disable_flute_get_dialog_patch = Patch("disable_flute_get_dialog", 0x1400c2241, self.process).nop(5)
-        disable_bubble_get_dialog_patch = Patch("disable_bubble_get_dialog", 0x1400c21ea, self.process).nop(5)
-        disable_uv_get_dialog_patch = Patch("disable_uv_get_dialog", 0x1400c1cd9, self.process).nop(5)
-        disable_yoyo_get_dialog_patch = Patch("disable_yoyo_get_dialog", 0x1400c1f21, self.process).nop(5)
-        disable_slink_get_dialog_patch = Patch("disable_slink_get_dialog", 0x1400c1bc0, self.process).nop(5)
-        disable_remote_get_dialog_patch = Patch("disable_remote_get_dialog", 0x1400c211a, self.process).nop(5)
-        disable_wheel_get_dialog_patch = Patch("disable_wheel_get_dialog", 0x1400c22c8, self.process).nop(5)
-        disable_wheel_get_without_saving_cats_dialog_patch = Patch("disable_wheel_get_without_saving_cats_dialog", 0x1400c20b2, self.process).nop(5)
-        disable_ball_get_dialog_patch = Patch("disable_ball_get_dialog", 0x1400c200d, self.process).nop(5)
-        disable_top_get_dialog_patch = Patch("disable_top_get_dialog", 0x1400c1fb6, self.process).nop(5)
-        disable_egg65_get_dialog_patch = Patch("disable_egg65_get_dialog", 0x1400c18be, self.process).nop(5)
-        disable_bbwand_get_dialog_patch = Patch("disable_bbwand_get_dialog", 0x1400c1d75, self.process).nop(5)
-        disable_fannypack_get_dialog_patch = Patch("disable_fannypack_get_dialog", 0x1400c1e81, self.process).nop(5)
-        disable_firecracker_get_dialog_patch = Patch("disable_firecracker_get_dialog", 0x14002cb59, self.process).nop(5)
-        disable_firecracker_selected_equipment_patch = Patch("disable_firecracker_selected_equipment", 0x14002caea, self.process).nop(5)
-        disable_mockdisc_flags_check_patch = Patch("disable_mockdisc_flags_check", 0x1400c1003, self.process).add_bytes(bytearray([0xEB]))
-        disable_sack_spawn_patch = Patch("disable_sack_spawn_patch", 0x140074710, self.process).add_bytes(bytearray([0xc3]))
+        disable_egg_get_dialog_patch = Patch("disable_egg_get_dialog", self.module_base + 0xC2753, self.process).nop(5) # was 0x1400c24a3
+        disable_lantern_get_dialog_patch = Patch("disable_lantern_get_dialog", self.module_base + 0xC1F32, self.process).nop(5) # was 0x1400c1c82
+        disable_flute_get_dialog_patch = Patch("disable_flute_get_dialog", self.module_base + 0xC24F1, self.process).nop(5) # was 0x1400c2241
+        disable_bubble_get_dialog_patch = Patch("disable_bubble_get_dialog", self.module_base + 0xC249A, self.process).nop(5) # was 0x1400c21ea
+        disable_uv_get_dialog_patch = Patch("disable_uv_get_dialog", self.module_base + 0xC1F89, self.process).nop(5) # was 0x1400c1cd9
+        disable_yoyo_get_dialog_patch = Patch("disable_yoyo_get_dialog", self.module_base + 0xC21D1, self.process).nop(5) # was 0x1400c1f21
+        disable_slink_get_dialog_patch = Patch("disable_slink_get_dialog", self.module_base + 0xC1E70, self.process).nop(5) # was 0x1400c1bc0
+        disable_remote_get_dialog_patch = Patch("disable_remote_get_dialog", self.module_base + 0xC23CA, self.process).nop(5) # was 0x1400c211a
+        disable_wheel_get_dialog_patch = Patch("disable_wheel_get_dialog", self.module_base + 0xC2578, self.process).nop(5) # was 0x1400c22c8
+        disable_wheel_get_without_saving_cats_dialog_patch = Patch("disable_wheel_get_without_saving_cats_dialog", self.module_base + 0xC2362, self.process).nop(5) # was 0x1400c20b2
+        disable_ball_get_dialog_patch = Patch("disable_ball_get_dialog", self.module_base + 0xC22BD, self.process).nop(5) # was 0x1400c200d
+        disable_top_get_dialog_patch = Patch("disable_top_get_dialog", self.module_base + 0xC2266, self.process).nop(5) # was 0x1400c1fb6
+        disable_egg65_get_dialog_patch = Patch("disable_egg65_get_dialog", self.module_base + 0xC1B6E, self.process).nop(5) # was 0x1400c18be
+        disable_bbwand_get_dialog_patch = Patch("disable_bbwand_get_dialog", self.module_base + 0xC2025, self.process).nop(5) # was 0x1400c1d75
+        disable_fannypack_get_dialog_patch = Patch("disable_fannypack_get_dialog", self.module_base + 0xC2131, self.process).nop(5) # was 0x1400c1e81
+        disable_firecracker_get_dialog_patch = Patch("disable_firecracker_get_dialog", self.module_base + 0x2CD89, self.process).nop(5) # was 0x14002cb59
+        disable_firecracker_selected_equipment_patch = Patch("disable_firecracker_selected_equipment", self.module_base + 0x2CD1A, self.process).nop(5) # was 0x14002caea
+        disable_mockdisc_flags_check_patch = Patch("disable_mockdisc_flags_check", self.module_base + 0xC12B3, self.process).add_bytes(bytearray([0xEB])) # was 0x1400c1003
+        disable_sack_spawn_patch = Patch("disable_sack_spawn_patch", self.module_base + 0x749C0, self.process).add_bytes(bytearray([0xc3])) # was 0x140074710
 
         if self.log_debug_info:
             self.log_info(f"Applying disable_chest_item_patch patch...")
@@ -1019,7 +1039,7 @@ class BeanPatcher:
         Disables the credits by NOPing out a check that checks if the credits timer is still running,
         effectively jumping to the end of the credits instantly when they start rolling.
         """
-        skip_credits_address = self.module_base + 0x476D9
+        skip_credits_address = self.module_base + 0x47969 # was 0x476D9
         skip_credits_patch = Patch(
             "skip_credits", skip_credits_address, self.process).nop(2)
         if self.log_debug_info:
@@ -1034,7 +1054,7 @@ class BeanPatcher:
         if not self.tracker_initialized:
             self.tracker_stamps_addr = self.custom_memory_current_offset
             self.custom_memory_current_offset += CUSTOM_STAMPS * 6
-        redirect_stamps_address = self.module_base + 0x42AEE
+        redirect_stamps_address = self.module_base + 0x42D7E # was 0x42AEE
         redirect_stamps_patch = Patch(
             "redirect_stamps", redirect_stamps_address, self.process).mov_rdi(self.tracker_stamps_addr+4).nop(3)
         if self.log_debug_info and not self.tracker_initialized:
@@ -1048,7 +1068,7 @@ class BeanPatcher:
         stamp type in our custom stamps, used to index the color array to set the color and
         then removed before handing the stamp type back to the game.
         """
-        injection_address = self.module_base + 0x42ce8
+        injection_address = self.module_base + 0x42F78 # was 0x42ce8
         if not self.tracker_initialized:
             self.tracker_icons_addr = self.custom_memory_current_offset
             tracker_icons_patch = (
@@ -1082,7 +1102,7 @@ class BeanPatcher:
                 .add_bytes(bytearray([0x58, 0x41, 0x5D, 0x41, 0x5E, 0x41, 0x5F]))
                 .add_bytes(bytearray([0x49, 0xBE]))
                 .add_bytes((self.tracker_icons_addr+16).to_bytes(8, "little"))
-                .jmp_far(self.module_base + 0x42b20)
+                .jmp_far(self.module_base + 0x42DB0) # was 0x42b20
                 )
             self.custom_memory_current_offset += len(tracker_color_patch)
             tracker_icons_patch.apply()
@@ -1125,7 +1145,7 @@ class BeanPatcher:
             self.custom_memory_current_offset += 256
             self.tracker_draw_routine_addr = self.custom_memory_current_offset
 
-        tracker_draw_injection_address = self.module_base + 0x40d21
+        tracker_draw_injection_address = self.module_base + 0x40F55 # was 0x40d21
         tracker_draw_trampoline = (Patch("tracker_draw_trampoline", tracker_draw_injection_address, self.process)
                                      .mov_to_rax(self.tracker_draw_routine_addr).jmp_rax().nop(3))
 
@@ -1184,7 +1204,7 @@ class BeanPatcher:
         0x14003BA8F 49 89 F8                                mov     r8, rdi                   ; save
         0x14003BA92 E8 59 A8 02 00                          call    updatePlayerState
         """
-        bean_died_address = self.module_base + 0x3BA8A
+        bean_died_address = self.module_base + 0x3BCCA # was 0x3BA8A
 
         self.bean_has_died_address = self.custom_memory_current_offset
 
@@ -1205,7 +1225,7 @@ class BeanPatcher:
                              .mov_rbx(self.bean_has_died_address)
                              .mov_al_to_address_in_rbx()
                              .update_player_state(self.player_address, 5, self.current_save_address)
-                             .jmp_far(self.module_base + 0x3BA97)
+                             .jmp_far(self.module_base + 0x3BCD7) # was 0x3BA97
                              )
 
         self.custom_memory_current_offset += len(bean_died_routine)
@@ -1232,13 +1252,13 @@ class BeanPatcher:
                 patch.revert()
             self.save_patches.clear()
         else:
-            file_addr = self.module_base + 0x133a08  # this is a big lump of emptiness at the end of the .text region, which is easy to work with
+            file_addr = self.module_base + 0x139CE8 # was 133A08 # this is a big lump of emptiness at the end of the .text region, which is easy to work with
             file_bytes = seeded_save_file.encode("utf-16le") + b"\x00\x00"
             self.process.write_bytes(file_addr, file_bytes, len(file_bytes))
-            load_patch = Patch("save_load", self.module_base + 0x16822, self.process).lea_rax_addr(file_addr)
-            save_patch = Patch("save_save", self.module_base + 0x169e2, self.process).lea_rax_addr(file_addr)
-            attr_patch = Patch("save_attr", self.module_base + 0x1692b, self.process).lea_rax_addr(file_addr)
-            delete_patch = Patch("save_delete", self.module_base + 0x16753, self.process).lea_rax_addr(file_addr)
+            load_patch = Patch("save_load", self.module_base + 0x16A32, self.process).lea_rax_addr(file_addr) # was 0x16822
+            save_patch = Patch("save_save", self.module_base + 0x16C12, self.process).lea_rax_addr(file_addr) # was 0x169E2
+            attr_patch = Patch("save_attr", self.module_base + 0x16B5B, self.process).lea_rax_addr(file_addr) # was 0x1692B
+            delete_patch = Patch("save_delete", self.module_base + 0x16963, self.process).lea_rax_addr(file_addr) # was 0x16753
             if load_patch.apply() and load_patch.name not in self.save_patches:
                 self.save_patches[load_patch.name] = load_patch
             if save_patch.apply() and save_patch.name not in self.save_patches:
@@ -1258,7 +1278,7 @@ class BeanPatcher:
             self.change_save_file_name(seeded_save_file)
             self.process.write_uchar(self.application_state_address + 0x400 + 0x750cc, 1)  # return to title screen to reload new save file
             self.process.write_uchar(self.application_state_address + 0x40C, 0)  # set current save slot to 0
-            self.process.write_uchar(self.module_base + 0x1f17e, 1)  # disable load game menu
+            self.process.write_uchar(self.module_base + 0x1F3A8, 1)  # was 0x1F17E # disable load game menu
             self.save_file = seeded_save_file
             return True
         return False
@@ -1271,7 +1291,7 @@ class BeanPatcher:
         if seeded_save_file != self.save_file:
             self.change_save_file_name(seeded_save_file)
             self.process.write_uchar(self.application_state_address + 0x400 + 0x750cc, 1)  # return to title screen to reload new save file
-            self.process.write_uchar(self.module_base + 0x1f17e, 2)  # enable load game menu
+            self.process.write_uchar(self.module_base + 0x1F3A8, 2)  # was 0x1F17E # enable load game menu
             self.save_file = seeded_save_file
             return True
         return False
@@ -1306,7 +1326,7 @@ class BeanPatcher:
         This patch disables darkness in the game, causing all rooms to be equally lit across all tiles.
         Mostly useful for debugging.
         """
-        self.fullbright_patch = Patch("fullbright", 0x140102e63, self.process).add_bytes(b"\xeb\x19")
+        self.fullbright_patch = Patch("fullbright", self.module_base + 0x103123, self.process).add_bytes(b"\xeb\x19") # was 102E63
 
     def revert_patches(self):
         if not self.attached_to_process:
