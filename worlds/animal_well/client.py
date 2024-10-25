@@ -515,7 +515,7 @@ class AnimalWellContext(CommonContext):
     def get_tiles(self, tile_types, map_id=0):
         if self.start_address is None:
             return
-        map_addr = int.from_bytes(self.process_handle.read_bytes(self.bean_patcher.module_base + 0x2BD8E30, 8), byteorder="little") + 0x2d0 + map_id * 0x1b8f84
+        map_addr = int.from_bytes(self.process_handle.read_bytes(self.bean_patcher.base_layer_address, 8), byteorder="little") + 0x2d0 + map_id * 0x1b8f84
         room_count = int.from_bytes(self.process_handle.read_bytes(map_addr, 2), byteorder="little")
         map_data = self.process_handle.read_bytes(map_addr + 4, 0x1b8f84)
         for room_idx in range(room_count):

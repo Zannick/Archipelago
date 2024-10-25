@@ -458,6 +458,14 @@ class BeanPatcher:
 
         return self.tracker_stamps_addr
 
+    @property
+    def base_layer_address(self):
+        if not self.attached_to_process:
+            self.log_error("Can't get base layer address without being attached to a process.")
+            return None
+
+        return self.module_base + 0x2BDFE20
+
     def attach_to_process(self, process=None) -> bool:
         if process is not None:
             self.process = process
