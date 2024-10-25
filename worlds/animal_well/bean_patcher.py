@@ -726,7 +726,7 @@ class BeanPatcher:
             .nop(0xd))
         warp_to_hub_text = "warp to hub".encode("utf-16le") + b"\x00\x00"
         self.process.write_bytes(self.custom_memory_current_offset, warp_to_hub_text, len(warp_to_hub_text))
-        self.process.write_bytes(self.module_base + 0x2D9AF00, self.custom_memory_current_offset.to_bytes(8, "little", signed=False), 8) # was 2D93F00
+        self.process.write_bytes(self.module_base + 0x2D9AF20, self.custom_memory_current_offset.to_bytes(8, "little", signed=False), 8) # was 2D93F00
         self.custom_memory_current_offset += len(warp_to_hub_text)
         pause_menu_increase_option_count_1_patch = (
             Patch("pause_menu_increase_option_count_1_patch", self.module_base + 0x43F87, self.process) # was 0x43cf7
