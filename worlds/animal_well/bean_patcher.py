@@ -729,10 +729,10 @@ class BeanPatcher:
         self.process.write_bytes(self.module_base + 0x2D9AF00, self.custom_memory_current_offset.to_bytes(8, "little", signed=False), 8) # was 2D93F00
         self.custom_memory_current_offset += len(warp_to_hub_text)
         pause_menu_increase_option_count_1_patch = (
-            Patch("pause_menu_increase_option_count_1_patch", self.module_base + 0x43F85, self.process) # was 0x43cf7
+            Patch("pause_menu_increase_option_count_1_patch", self.module_base + 0x43F87, self.process) # was 0x43cf7
             .add_bytes(b"\x02"))
         pause_menu_increase_option_count_2_patch = (
-            Patch("pause_menu_increase_option_count_2_patch", self.module_base + 0x442DF, self.process) # was 44052
+            Patch("pause_menu_increase_option_count_2_patch", self.module_base + 0x442E2, self.process) # was 44052
             .add_bytes(b"\x03"))
         pause_menu_on_confirm_patch = (
             Patch("pause_menu_on_confirm_patch", self.custom_memory_current_offset, self.process)
