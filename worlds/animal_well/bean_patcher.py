@@ -1153,7 +1153,7 @@ class BeanPatcher:
             self.custom_memory_current_offset += 256
             self.tracker_draw_routine_addr = self.custom_memory_current_offset
 
-        tracker_draw_injection_address = self.module_base + 0x40F55 # was 0x40d21
+        tracker_draw_injection_address = self.module_base + 0x40FB1 # was 0x40d21
         tracker_draw_trampoline = (Patch("tracker_draw_trampoline", tracker_draw_injection_address, self.process)
                                      .mov_to_rax(self.tracker_draw_routine_addr).jmp_rax().nop(3))
 
