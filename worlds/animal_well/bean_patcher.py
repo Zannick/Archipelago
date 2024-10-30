@@ -1286,7 +1286,7 @@ class BeanPatcher:
             self.change_save_file_name(seeded_save_file)
             self.process.write_uchar(self.application_state_address + 0x400 + 0x750cc, 1)  # return to title screen to reload new save file
             self.process.write_uchar(self.application_state_address + 0x40C, 0)  # set current save slot to 0
-            self.process.write_uchar(self.module_base + 0x1F3A8, 1)  # was 0x1F17E # disable load game menu
+            self.process.write_uchar(self.module_base + 0x1F3AE, 1)  # was 0x1F17E # disable load game menu
             self.save_file = seeded_save_file
             return True
         return False
