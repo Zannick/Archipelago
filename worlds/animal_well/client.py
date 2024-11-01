@@ -26,12 +26,13 @@ from .options import FinalEggLocation, Goal
 from .bean_patcher import BeanPatcher
 from .logic_tracker import AnimalWellTracker, CheckStatus, candle_event_to_item
 
-CONNECTION_ABORTED_STATUS = "Connection Refused. Some unrecoverable error occurred"
-CONNECTION_REFUSED_STATUS = "Connection Refused. Please make sure exactly one Animal Well instance is running"
+CONNECTION_ABORTED_STATUS = "Connection Aborted. Some unrecoverable error occurred."
+CONNECTION_REFUSED_STATUS = "Connection Refused. Likely causes are your game not "
+                            "being properly recognized or having multiple instances open."
 CONNECTION_RESET_STATUS = "Connection was reset. Please wait"
-CONNECTION_CONNECTED_STATUS = "Connected"
-CONNECTION_TENTATIVE_STATUS = "Connection has been initiated"
-CONNECTION_INITIAL_STATUS = "Connection has not been initiated"
+CONNECTION_CONNECTED_STATUS = "Connected."
+CONNECTION_TENTATIVE_STATUS = "Connection has been initiated."
+CONNECTION_INITIAL_STATUS = "Connection has not been initiated."
 
 DEATHLINK_MESSAGE = "The bean has died."
 DEATHLINK_RECEIVED_MESSAGE = "{name} died and took you with them."
