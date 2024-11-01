@@ -546,8 +546,9 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
     rname.bear_hedgehog_square: {
         lname.fruit_30:
             AWData(AWType.location, loc_type=LocType.fruit),
-        lname.bunny_ghost_dog:  
-            AWData(AWType.location, [[iname.m_disc, iname.flute, iname.activated_bear_fast_travel]],
+        lname.bunny_ghost_dog:  # flute is to make it less tedious mostly
+            AWData(AWType.location, [[iname.m_disc, iname.flute, iname.activated_bear_fast_travel],
+                                     [iname.m_disc, iname.precise_tricks]],  # you don't /need/ flute
                    loc_type=LocType.bunny),
         rname.bear_connector_passage:
             AWData(AWType.region, [[iname.slink]]),
