@@ -637,7 +637,7 @@ class BeanPatcher:
 
         # self.apply_receive_item_patch()
 
-        # self.apply_skip_credits_patch()
+        self.apply_skip_credits_patch()
 
         # self.apply_deathlink_patch()
 
@@ -1155,7 +1155,7 @@ class BeanPatcher:
         Disables the credits by NOPing out a check that checks if the credits timer is still running,
         effectively jumping to the end of the credits instantly when they start rolling.
         """
-        skip_credits_address = self.module_base + 0x47969 # was 0x476D9
+        skip_credits_address = self.find_pattern("73 4c c7 85 c0 34 03 00 00 00 00 00 8b 85 c4 34 03 00 83 c0 01") # was 0x476D9, 0x140047969
         skip_credits_patch = Patch(
             "skip_credits", skip_credits_address, self.process).nop(2)
         if self.log_debug_info:
@@ -1320,7 +1320,7 @@ class BeanPatcher:
         0x14003BA8F 49 89 F8                                mov     r8, rdi                   ; save
         0x14003BA92 E8 59 A8 02 00                          call    updatePlayerState
         """
-        bean_died_address = self.module_base + 0x3BCCA # was 0x3BA8A
+        bean_died_address = self.find_pattern("48 89 f1 b2 05 49 89 f8")  # was 0x3BA8A, 0x14003BCCA
 
         self.bean_has_died_address = self.custom_memory_current_offset
 
@@ -1341,7 +1341,7 @@ class BeanPatcher:
                              .mov_rbx(self.bean_has_died_address)
                              .mov_al_to_address_in_rbx()
                              .update_player_state(self.player_address, 5, self.current_save_address)
-                             .jmp_far(self.module_base + 0x3BCD7) # was 0x3BA97
+                             .jmp_far(self.find_pattern("c6 86 90 00 00 00 00 80 a6 55 89 00 00 fb 8a 46 5d 3c 07"))  # was 0x3BA97, 0x14003BCD7
                              )
 
         self.custom_memory_current_offset += len(bean_died_routine)
@@ -1511,8 +1511,6 @@ class BeanPatcher:
                 self.process.write_bool(self.bean_has_died_address, False)
                 if self.on_bean_death_function is not None:
                     await self.on_bean_death_function()
-
-        self.enable_room_palette_override(random.randrange(0, 31))
 
     def key_pressed(self, key):
         if self.cmd_keys is None or self.cmd_keys_old is None:
