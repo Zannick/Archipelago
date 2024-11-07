@@ -865,7 +865,7 @@ class BeanPatcher:
             .pop_r9().pop_r8().pop_rdx().pop_rcx()
             .mov_rdx(self.application_state_address)
             .cmp_ebx(0xe10)
-            .jl_far(self.find_pattern("4c 8d 82 00 04 00 00 48 81 c2 70 36 09 00 b9 02 00 00 00 e8 e7 41 fe ff")) # was 0x140044391 0x140044621
+            .jl_far(self.find_pattern("4c 8d 82 00 04 00 00 48 81 c2 ?? ?? ?? ?? b9 02 00 00 00 e8 ?? ?? ?? ?? e8 ?? ?? ?? ?? 0f 28 b4 24 70 02 00 00")) # was 0x140044391 0x140044621
             .jmp_far(self.find_pattern("8b 82 44 36 09 00 89 82 40 36 09 00 c7 82 10 36 09 00 00 00 00 00 c7 82"
                                        " 18 36 09 00 00 00 00 00 c7 82 44 36 09 00 09 00 00 00 c7 82 48 36 09 00 00 00 00 00")) # was 0x14004435b 0x1400445eb
             .nop(0x10))
