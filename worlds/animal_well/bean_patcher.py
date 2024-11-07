@@ -466,10 +466,18 @@ class BeanPatcher:
 
         # self.log_info(f"Searching for pattern '{pattern}'")
 
-        byte_count = len(pattern.split(' '))
+        byte_strings = []
 
-        pattern_bytes = bytes("\\x" + pattern.replace(" ", "\\x"), "utf-8")
-        # self.log_info(f"Pattern_bytes: {pattern_bytes}")
+        for group in pattern.split(" "):
+            if group == "??":
+                byte_strings.append(b".")
+            else:
+                byte_strings.append(bytes("\\x" + group, "utf-8"))
+
+        byte_count = len(byte_strings)
+        pattern_bytes = b"".join(byte_strings)
+        # pattern_bytes = bytes("\\x" + pattern.replace(" ", "\\x"), "utf-8")
+        self.log_info(f"Pattern_bytes: {pattern_bytes}")
 
         address = self.process.pattern_scan_module(pattern_bytes, self.aw_module)
 
@@ -556,7 +564,7 @@ class BeanPatcher:
         if self.log_debug_info: self.log_info(f"set_current_color found at {hex(Patch.function_addresses['set_current_color'])}")
         Patch.function_addresses["set_current_shader"] = self.find_pattern("48 63 90 68 dc 89 00 89 8c 90 48 dc 89 00") - 7 # 0x14001A4B0
         if self.log_debug_info: self.log_info(f"set_current_shader found at {hex(Patch.function_addresses['set_current_shader'])}")
-        Patch.function_addresses["get_key_pressed"] = self.find_relative_address_from_instruction(self.find_pattern("48 89 46 60 48 8d 05 7e e3 ff ff") + 4, 3) # 0x140011C70
+        Patch.function_addresses["get_key_pressed"] = self.find_pattern("80 bc 08 00 01 00 00 00 78 03 31 c0") - 10 # 0x140011C70
         if self.log_debug_info: self.log_info(f"get_key_pressed found at {hex(Patch.function_addresses['get_key_pressed'])}")
         Patch.function_addresses["get_gamepad_button_pressed"] = self.find_pattern("53 48 83 ec 20 89 ca") # 0x140011EA0
         if self.log_debug_info: self.log_info(f"get_gamepad_button_pressed found at {hex(Patch.function_addresses['get_gamepad_button_pressed'])}")
@@ -635,13 +643,13 @@ class BeanPatcher:
 
         self.apply_item_collection_patches()
 
-        # self.apply_receive_item_patch()
+        self.apply_receive_item_patch()
 
         self.apply_skip_credits_patch()
 
-        # self.apply_deathlink_patch()
+        self.apply_deathlink_patch()
 
-        # self.apply_seeded_save_patch()  # the seed is saved in RoomInfo and applied in Connection, and applied here again if AP was connected before AW was launched
+        self.apply_seeded_save_patch()  # the seed is saved in RoomInfo and applied in Connection, and applied here again if AP was connected before AW was launched
 
         # mural bytes at slot + 0x26eaf
         # default mural bytes at 0x142094600
@@ -1368,13 +1376,32 @@ class BeanPatcher:
                 patch.revert()
             self.save_patches.clear()
         else:
-            file_addr = self.module_base + 0x139CE8 # was 133A08 # this is a big lump of emptiness at the end of the .text region, which is easy to work with
+            # file_addr = self.module_base + 0x139CE8 # was 133A08 # this is a big lump of emptiness at the end of the .text region, which is easy to work with
+            # TODO: Update this code to use a trampoline so we can extend from a 7-byte LEA instruction with a relative address to use custom memory with a 10-byte LEA RAX
+            # Since finding a code cave isn't as reliable as allocating your own memory.
             file_bytes = seeded_save_file.encode("utf-16le") + b"\x00\x00"
+            file_addr = self.find_pattern(" ".join(["CC"] * len(file_bytes)))
             self.process.write_bytes(file_addr, file_bytes, len(file_bytes))
-            load_patch = Patch("save_load", self.module_base + 0x16A32, self.process).lea_rax_addr(file_addr) # was 0x16822
-            save_patch = Patch("save_save", self.module_base + 0x16C12, self.process).lea_rax_addr(file_addr) # was 0x169E2
-            attr_patch = Patch("save_attr", self.module_base + 0x16B5B, self.process).lea_rax_addr(file_addr) # was 0x1692B
-            delete_patch = Patch("save_delete", self.module_base + 0x16963, self.process).lea_rax_addr(file_addr) # was 0x16753
+            load_address = self.find_pattern(
+                "48 8d 05 ?? ?? ?? ?? 48 89 44 24 20 48 8d 6c 24 40 ba 04 01 00 00 48 89 e9 49 89 d8 49 89 f1 e8 ?? ?? ?? ?? "
+                "48 c7 44 24 30 00 00 00 00 c7 44 24 28 80 00 00 00 c7 44 24 20 04 00 00 00 48 89 e9 ba 00 00 00 80")
+            save_address = self.find_pattern(
+                "48 8d 05 ?? ?? ?? ?? 48 89 44 24 20 48 8d 6c 24 40 ba 04 01 00 00 48 89 e9 49 89 d8 49 89 f1 e8 ?? ?? ?? ?? "
+                "48 c7 44 24 30 00 00 00 00 c7 44 24 28 80 00 00 00 c7 44 24 20 04 00 00 00 48 89 e9 ba 00 00 00 40")
+            attr_address = self.find_pattern(
+                "48 8d 05 ?? ?? ?? ?? 48 89 44 24 20 48 8d 5c 24 30 ba 04 01 00 00 48 89 d9 49 89 f0 49 89 f9 e8 ?? ?? ?? ?? "
+                "48 89 d9 ff 15 ?? ?? ?? ?? a8 10")
+            delete_address = self.find_pattern(
+                "48 8d 05 ?? ?? ?? ?? 48 89 44 24 20 48 8d 7c 24 30 ba 04 01 00 00 48 89 f9 49 89 d8 49 89 f1 e8 ?? ?? ?? ?? "
+                "48 89 f9 ff 15 ?? ?? ?? ??")
+            if self.log_debug_info: self.log_info(f"load_address: {hex(load_address)}")
+            if self.log_debug_info: self.log_info(f"save_address: {hex(save_address)}")
+            if self.log_debug_info: self.log_info(f"attr_address: {hex(attr_address)}")
+            if self.log_debug_info: self.log_info(f"delete_address: {hex(delete_address)}")
+            load_patch = Patch("save_load", load_address, self.process).lea_rax_addr(file_addr) # was 0x16822, 0x140016A32
+            save_patch = Patch("save_save", save_address, self.process).lea_rax_addr(file_addr) # was 0x169E2, 0x140016C12
+            attr_patch = Patch("save_attr", attr_address, self.process).lea_rax_addr(file_addr) # was 0x1692B, 0x140016B5B
+            delete_patch = Patch("save_delete", delete_address, self.process).lea_rax_addr(file_addr) # was 0x16753, 0x140016963
             if load_patch.apply() and load_patch.name not in self.save_patches:
                 self.save_patches[load_patch.name] = load_patch
             if save_patch.apply() and save_patch.name not in self.save_patches:
@@ -1394,7 +1421,7 @@ class BeanPatcher:
             self.change_save_file_name(seeded_save_file)
             self.process.write_uchar(self.application_state_address + 0x400 + 0x750cc, 1)  # return to title screen to reload new save file
             self.process.write_uchar(self.application_state_address + 0x40C, 0)  # set current save slot to 0
-            self.process.write_uchar(self.module_base + 0x1F3AE, 1)  # was 0x1F17E # disable load game menu
+            self.process.write_uchar(self.find_pattern("c7 82 10 36 09 00 00 00 00 00 c7 82 18 36 09 00 00 00 00 00 c7 82 44 36 09 00 02 00 00 00", True) - 4, 1)  # was 0x1F17E # disable load game menu, 1F3AE
             self.save_file = seeded_save_file
             return True
         return False
