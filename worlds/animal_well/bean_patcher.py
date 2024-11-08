@@ -1114,7 +1114,8 @@ class BeanPatcher:
         if not self.tracker_initialized:
             self.tracker_stamps_addr = self.custom_memory_current_offset
             self.custom_memory_current_offset += CUSTOM_STAMPS * 6
-        redirect_stamps_address = self.find_pattern("0f 84 0e 02 00 00 49 8d bd 2c 02 00 00 f3 0f 10 3d ?? ?? ?? ??") # was 0x42AEE, 42D7E
+        redirect_stamps_address = self.find_pattern("e8 ?? ?? ?? ?? 41 8a 85 25 02 00 00 84 c0 4c 89 f6", True) # was 0x42AEE, 42D7E
+        # redirect_stamps_address = self.find_pattern("0f 84 0e 02 00 00 49 8d bd 2c 02 00 00 f3 0f 10 3d ?? ?? ?? ??") # was 0x42AEE, 42D7E
         redirect_stamps_patch = Patch(
             "redirect_stamps", redirect_stamps_address, self.process).mov_rdi(self.tracker_stamps_addr+4).nop(3)
         if self.log_debug_info and not self.tracker_initialized:
@@ -1128,7 +1129,7 @@ class BeanPatcher:
         stamp type in our custom stamps, used to index the color array to set the color and
         then removed before handing the stamp type back to the game.
         """
-        injection_address = self.find_pattern("0f 57 ff f3 41 0f 2a fe f3 41 0f 10 44 24 14 f3 0f 58 f0 0f 28 cf") # was 0x42ce8, 42F78
+        injection_address = self.find_pattern("8d 14 2b 83 c2 04 44 89 f1 41 b8 01 00 00 00 e8 ?? ?? ?? ??", True) # was 0x42ce8, 42F78
         if not self.tracker_initialized:
             self.tracker_icons_addr = self.custom_memory_current_offset
             tracker_icons_patch = (
@@ -1205,7 +1206,7 @@ class BeanPatcher:
             self.custom_memory_current_offset += 256
             self.tracker_draw_routine_addr = self.custom_memory_current_offset
 
-        tracker_draw_injection_address = self.find_pattern("e8 ?? ?? ?? ?? b9 29 00 00 00 e8 ?? ?? ?? ?? b9 f4 c0 64 ff e8 ?? ?? ?? ??")# was 0x40d21, 40FB1
+        tracker_draw_injection_address = self.find_pattern("f3 41 0f 11 4c 24 20 b9 82 6e 5a 64", True) # was 0x40d21, 40FB1
         tracker_draw_trampoline = (Patch("tracker_draw_trampoline", tracker_draw_injection_address, self.process)
                                      .mov_to_rax(self.tracker_draw_routine_addr).jmp_rax().nop(3))
 
