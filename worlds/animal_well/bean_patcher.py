@@ -635,8 +635,6 @@ class BeanPatcher:
 
         self.generate_room_palette_override_patch()
 
-        ##### self.apply_input_reader_patch()
-
         self.apply_pause_menu_patch()
 
         self.generate_fullbright_patch()
@@ -850,7 +848,7 @@ class BeanPatcher:
         self.process.write_bytes(self.text_lookup_table_address + 0x20, self.custom_memory_current_offset.to_bytes(8, "little", signed=False), 8) # was 2D93F00 # then 0x142D9AF20
         self.custom_memory_current_offset += len(warp_to_hub_text)
         pause_menu_increase_option_count_1_patch = (
-            Patch("pause_menu_increase_option_count_1_patch", self.find_pattern("83 fe 01 7f 3f 83 c6 01") + 3, self.process) # was 0x43cf7 43f87
+            Patch("pause_menu_increase_option_count_1_patch", self.find_pattern("83 fe 01 7f 3f 83 c6 01") + 2, self.process) # was 0x43cf7 43f87
             .add_bytes(b"\x02"))
         pause_menu_increase_option_count_2_patch = (
             Patch("pause_menu_increase_option_count_2_patch", self.find_pattern("48 83 fe 02 74 11 44 8b 64 f4 58") + 3, self.process) # was 44052 442e2
