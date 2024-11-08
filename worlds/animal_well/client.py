@@ -165,8 +165,7 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
             logger.info(status_text)
 
             if host.animal_well_settings["in_game_tracker"] > tracker_enum.no_tracker:
-                pass
-                # self.ctx.bean_patcher.apply_tracker_patches()
+                self.ctx.bean_patcher.apply_tracker_patches()
             else:
                 self.ctx.bean_patcher.revert_tracker_patches()
 
@@ -370,7 +369,7 @@ class AnimalWellContext(CommonContext):
             self.bean_patcher.update_tracker_text()
             aw_settings = get_settings().animal_well_settings
             if aw_settings.get("in_game_tracker", AWSettings.TrackerSetting.full_tracker) > AWSettings.TrackerSetting.no_tracker:
-                # self.bean_patcher.apply_tracker_patches()
+                self.bean_patcher.apply_tracker_patches()
                 pass
             else:
                 self.bean_patcher.revert_tracker_patches()
@@ -1423,8 +1422,7 @@ async def get_animal_well_process_handle(ctx: AnimalWellContext):
             host = get_settings()
             tracker_enum = AWSettings.TrackerSetting
             if host.animal_well_settings["in_game_tracker"] > tracker_enum.no_tracker:
-                pass
-                # ctx.bean_patcher.apply_tracker_patches()
+                ctx.bean_patcher.apply_tracker_patches()
             else:
                 ctx.bean_patcher.revert_tracker_patches()
 

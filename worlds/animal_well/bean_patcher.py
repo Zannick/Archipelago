@@ -912,70 +912,6 @@ class BeanPatcher:
         if pause_menu_patch_on_confirm_trampoline_patch.apply():
             self.revertable_patches.append(pause_menu_patch_on_confirm_trampoline_patch)
 
-    def apply_input_reader_patch(self):
-        """
-        This patch enables watching for additional input beyond just the default controls and triggers functions
-        when the expected button is pressed.
-        Originally used as a Warp To Hub command before the Pause Menu patch was implemented.
-        """
-        # input_reader_patch = (Patch("input_reader_patch", 0x140133c00, self.process)
-        #                        .push_r15().push_r14().push_rsi().push_rdi().push_rbp().push_rbx()#.mov_to_rax(self.application_state_address + 0x93670)
-        #                        .nop(0x100).pop_rbx().pop_rbp().pop_rdi().pop_rsi().pop_r14().pop_r15().mov_to_eax(0x27168).call_far(0x140104800).jmp_far(0x14003B679) #.nop(0x100)
-        #                        )
-        #   originalCode
-        #   14003B7D1:  mov         edi,        841C
-        #   14003B7D6:  movss       xmm6,       cs:dword_1420949D0
-        #   14003B7DE:  movss       xmm7,       cs:dword_1420949f4
-        #   14003B7E6:  movss       jmp short   loc_14003b7fd
-        #   replacing with
-        #               <new code>
-        #               mov         rax,        [1420949d0]
-        #               movq        xmm6,       rax
-        #               mov         rax,        [1420949f4]
-        #               movq        xmm7,       rax
-        #               jmp far     14003b7fd
-        # flameStatue   116/026,    740000001a, 0b0b,   0
-        # bunnyStatue   136/048,    8000000030, 0c0b,   1
-        # space         144/074,    800000004a, 130a,   2
-        # bunnyTemple   152/222,    8a000000df, 080c,   3
-        # timeCapsule   080/216,    50000000d8, 0c0b,   4 # teleports you out of world unless you set bdtp path variable
-        # Relevant item Ids:
-        # Unused: Stethoscope 0x14c, Cake 0x20,
-        # Upgrades: FannyPack 0x30C, Stopwatch 0x19a, Pedometer 0x108, CRing 0xa1, BBWand 0x2c4,
-        # Figs: MamaCha 0x32b, RabbitFig 0x332, SouvenirCup 0xe7,
-        # Other: EMedal 0x2a7, SMedal 0x1d5, Pencil 0x1ba, Map 0xd6, Stamps 0x95, Normal Key 0x28, Match 0x29
-        # Equipment: Top 0x27a, Ball 0x27d, Wheel 0x283, Remote 0x1d2, Slink 0x1a1, Yoyo 0x14e, UV 0x143, Bubble 0xa2, Flute 0xa9, Lantern 0x6d
-        # Quest: Egg65 0x2c7, OfficeKey 0x269, QuestionKey 0x26a, MDisc 0x17e
-        # Egg: 0x5a
-        input_reader_patch = (Patch("input_reader_patch", self.custom_memory_current_offset, self.process)
-                              .get_key_pressed(0x48)
-                              .cmp_al1_byte(0)
-                              .je_near(0x80)
-                              .push_rcx().push_rdx().push_r8().push_r9()
-                              .mov_from_absolute_address_to_eax(self.player_address + 0x5D)  # get player state
-                              .cmp_eax(5)  # only allow warp while idle, walking, jumping, falling, or climbing a ladder
-                              .jnl_short(56)
-                              .warp(self.player_address, self.unstuck_room_x, self.unstuck_room_y, self.unstuck_pos_x, self.unstuck_pos_y, self.unstuck_map)
-                              # .get_an_item(slot_address, 0x14c, 0x00, 0xff)
-                              .pop_r9().pop_r8().pop_rdx().pop_rcx()
-                              .nop(0x80)
-                              .mov_edi(0x841c)
-                              .mov_from_absolute_address_to_rax(self.module_base + 0x9A9D0).movq_rax_to_xmm6() # was 0x20949D0
-                              .mov_from_absolute_address_to_rax(self.module_base + 0x9A9F4).movq_rax_to_xmm7() # was 0x20949F4
-                              .jmp_far(self.module_base + 0x3BA3D) # was 0x14003B7FD
-                              )
-        self.custom_memory_current_offset += len(input_reader_patch)
-        if self.log_debug_info:
-            self.log_info(f"Applying input_reader_patch...\n{input_reader_patch}")
-        if input_reader_patch.apply():
-            self.revertable_patches.append(input_reader_patch)
-        input_reader_trampoline = (Patch("input_reader_trampoline", self.module_base + 0x3BA11, self.process) # was 0x14003B7D1
-                                   .jmp_far(input_reader_patch.base_address).nop(2))
-        if self.log_debug_info:
-            self.log_info(f"Applying input_reader_trampoline...\n{input_reader_trampoline}")
-        if input_reader_trampoline.apply():
-            self.revertable_patches.append(input_reader_trampoline)
-
     def apply_disable_anticheat_patch(self):
         """
         Disables the built-in anti-cheat that rolls back changes that occur to the player outside the frame function.
@@ -1178,7 +1114,7 @@ class BeanPatcher:
         if not self.tracker_initialized:
             self.tracker_stamps_addr = self.custom_memory_current_offset
             self.custom_memory_current_offset += CUSTOM_STAMPS * 6
-        redirect_stamps_address = self.module_base + 0x42D7E # was 0x42AEE
+        redirect_stamps_address = self.find_pattern("0f 84 0e 02 00 00 49 8d bd 2c 02 00 00 f3 0f 10 3d ?? ?? ?? ??") # was 0x42AEE, 42D7E
         redirect_stamps_patch = Patch(
             "redirect_stamps", redirect_stamps_address, self.process).mov_rdi(self.tracker_stamps_addr+4).nop(3)
         if self.log_debug_info and not self.tracker_initialized:
@@ -1192,7 +1128,7 @@ class BeanPatcher:
         stamp type in our custom stamps, used to index the color array to set the color and
         then removed before handing the stamp type back to the game.
         """
-        injection_address = self.module_base + 0x42F78 # was 0x42ce8
+        injection_address = self.find_pattern("0f 57 ff f3 41 0f 2a fe f3 41 0f 10 44 24 14 f3 0f 58 f0 0f 28 cf") # was 0x42ce8, 42F78
         if not self.tracker_initialized:
             self.tracker_icons_addr = self.custom_memory_current_offset
             tracker_icons_patch = (
@@ -1226,7 +1162,7 @@ class BeanPatcher:
                 .add_bytes(bytearray([0x58, 0x41, 0x5D, 0x41, 0x5E, 0x41, 0x5F]))
                 .add_bytes(bytearray([0x49, 0xBE]))
                 .add_bytes((self.tracker_icons_addr+16).to_bytes(8, "little"))
-                .jmp_far(self.module_base + 0x42DB0) # was 0x42b20
+                .jmp_far(self.find_pattern("41 0f b7 14 46 66 44 0f 7e c9 66 0f 7e f0 48 c1 e0 20 48 09 c1 c6 44 24 28 00 c6 44 24 20 00")) # was 0x42b20, 42DB0
                 )
             self.custom_memory_current_offset += len(tracker_color_patch)
             tracker_icons_patch.apply()
@@ -1269,7 +1205,7 @@ class BeanPatcher:
             self.custom_memory_current_offset += 256
             self.tracker_draw_routine_addr = self.custom_memory_current_offset
 
-        tracker_draw_injection_address = self.module_base + 0x40FB1 # was 0x40d21
+        tracker_draw_injection_address = self.find_pattern("e8 ?? ?? ?? ?? b9 29 00 00 00 e8 ?? ?? ?? ?? b9 f4 c0 64 ff e8 ?? ?? ?? ??")# was 0x40d21, 40FB1
         tracker_draw_trampoline = (Patch("tracker_draw_trampoline", tracker_draw_injection_address, self.process)
                                      .mov_to_rax(self.tracker_draw_routine_addr).jmp_rax().nop(3))
 
@@ -1434,7 +1370,7 @@ class BeanPatcher:
         if seeded_save_file != self.save_file:
             self.change_save_file_name(seeded_save_file)
             self.process.write_uchar(self.application_state_address + 0x400 + 0x750cc, 1)  # return to title screen to reload new save file
-            self.process.write_uchar(self.module_base + 0x1F3A8, 2)  # was 0x1F17E # enable load game menu
+            self.process.write_uchar(self.find_pattern("c7 82 10 36 09 00 00 00 00 00 c7 82 18 36 09 00 00 00 00 00 c7 82 44 36 09 00 02 00 00 00", True) - 4, 2)  # was 0x1F17E # enable load game menu, 0x1F3A8
             self.save_file = seeded_save_file
             return True
         return False
@@ -1573,7 +1509,7 @@ class BeanPatcher:
                 self.cmd = ""
                 self.display_to_client_bottom(f"> {self.cmd}")
                 self.process.write_bytes(self.application_state_address + 0x93608, b'\x01', 1)
-                self.cmd_patch.append(Patch("block_keyboard", self.module_base + 0x11c82, self.process, True).nop(2))
+                self.cmd_patch.append(Patch("block_keyboard", self.find_pattern("0f b6 c1 48 8d 0d ?? ?? ?? ?? 80 bc 08 00 01 00 00 00 78 03 31 c0 c3") + 0x12, self.process, True).nop(2))
                 for patch in self.cmd_patch:
                     patch.apply()
             else:
