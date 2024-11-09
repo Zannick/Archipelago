@@ -268,8 +268,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
                                    # throwing disc to hit switch while wheel stalling is very tight
                                    [iname.disc, iname.wheel_hop, iname.precise_tricks],
                                    [iname.bubble, iname.disc],
-                                   [iname.disc, iname.remote],
-                                   [iname.disc, iname.precise_tricks]]),
+                                   [iname.disc, iname.remote]]),
         lname.activate_fish_fast_travel:  # vertical implied by access
             AWData(AWType.location, [[iname.flute]], event=iname.activated_fish_fast_travel),
         rname.fast_travel:  # vertical implied by access
