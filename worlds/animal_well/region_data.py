@@ -472,16 +472,14 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
     rname.bear_slink_room: {
         lname.slink_chest:
             AWData(AWType.location),
-        rname.bear_transcendental:  # descend, jump into left wall, or disc hop from the platforms underneath
-            AWData(AWType.region, [[iname.slink, iname.bubble], [iname.top, iname.bubble],
-                                   [iname.slink, iname.disc_hop], [iname.top, iname.disc_hop],
-                                   [iname.slink, iname.flute, iname.obscure_tricks],
-                                   [iname.top, iname.flute, iname.obscure_tricks],
-                                   [iname.ball_trick_easy, iname.flute, iname.obscure_tricks],
-                                   [iname.disc_hop, iname.ball_trick_easy],
-                                   [iname.bubble, iname.ball_trick_easy]]),
+        rname.bear_slink_room_doors:
+            AWData(AWType.region, [[iname.slink], [iname.top], [iname.ball_trick_easy]]),
         # bear_area_entry:  # unnecessary because it's a sphere 1 area
         #     AWData(AWType.region),
+    },
+    rname.bear_slink_room_doors: {
+        rname.bear_transcendental:  # descend, jump into left wall, or disc hop from the platforms underneath
+            AWData(AWType.region, [[iname.bubble], [iname.disc_hop], [iname.flute, iname.obscure_tricks]]),
     },
     rname.bear_transcendental: {
         lname.egg_transcendental:
