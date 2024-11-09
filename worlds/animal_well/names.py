@@ -41,6 +41,7 @@ class RegionNames(str, Enum):
     bear_chameleon_room_1 = "Bear Chameleon Room 1"  # first chameleon encounter with the chinchilla
     bear_ladder_after_chameleon = "Bear Ladder after Chameleon 1"
     bear_slink_room = "Bear Slink Room"  # the room you get slink
+    bear_slink_room_doors = "Bear Slink Room after opening doors"
     bear_transcendental = "Bear Transcendental Egg Room"
     bear_kangaroo_waterfall = "Bear Kangaroo Waterfall and adjacent rooms"  # up left from entry point, need slink
     bear_middle_phone_room = "Bear Middle Phone Room"  # after the previous region, has the fast travel, monkey room
