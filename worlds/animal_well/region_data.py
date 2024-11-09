@@ -86,7 +86,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.disc], [iname.bubble_short], [iname.ball_trick_easy],
                                    [iname.yoyo], [iname.top, iname.obscure_tricks]]),
         lname.egg_holiday:  # in the wall to the right of the egg room entrance
-            AWData(AWType.location, [[iname.bubble], [iname.disc_hop], [iname.wheel_hard]]),
+            AWData(AWType.location, [[iname.bubble], [iname.disc_hop], [iname.wheel_hard],
+                                     [iname.flute, iname.obscure_tricks]]),
         lname.egg_rain:
             AWData(AWType.location, [[iname.top]]),
     },
@@ -266,6 +267,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes],
                                    [iname.bubble, iname.remote, iname.tanking_damage],
                                    [iname.remote, iname.wheel_hop],
+                                   # flute jump down from the galaxy egg entrance, and disc across (hop or toggle remote)
+                                   [iname.disc, iname.remote, iname.flute, iname.obscure_tricks],
                                    # throwing disc to hit switch while wheel stalling is very tight
                                    [iname.disc, iname.wheel_hop, iname.precise_tricks],
                                    [iname.bubble, iname.disc]]),
@@ -472,6 +475,9 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.bear_transcendental:  # descend, jump into left wall, or disc hop from the platforms underneath
             AWData(AWType.region, [[iname.slink, iname.bubble], [iname.top, iname.bubble],
                                    [iname.slink, iname.disc_hop], [iname.top, iname.disc_hop],
+                                   [iname.slink, iname.flute, iname.obscure_tricks],
+                                   [iname.top, iname.flute, iname.obscure_tricks],
+                                   [iname.ball_trick_easy, iname.flute, iname.obscure_tricks],
                                    [iname.disc_hop, iname.ball_trick_easy],
                                    [iname.bubble, iname.ball_trick_easy]]),
         # bear_area_entry:  # unnecessary because it's a sphere 1 area
@@ -566,7 +572,9 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.match_bear:
             AWData(AWType.location),
         rname.chocolate_egg_spot:
-            AWData(AWType.region, [[iname.bubble], [iname.wheel_hard]]),  # wall juts out, need bubble
+            # wall juts out, need bubble or mid-air jump
+            AWData(AWType.region, [[iname.bubble], [iname.wheel_hard],
+                                   [iname.flute, iname.obscure_tricks]]),
         rname.match_center_well_spot:
             AWData(AWType.region),  # wall is flush, just hold left
         rname.bear_truth_egg_spot:
@@ -1218,11 +1226,14 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         lname.egg_pickled:  # hold right while falling down the well
             AWData(AWType.location),
         rname.chocolate_egg_spot:
-            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble]]),  # wall juts out, need bubble
+            # wall juts out, need bubble or mid-air jump
+            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble],
+                                   [iname.flute, iname.obscure_tricks]]),
         rname.match_center_well_spot:
             AWData(AWType.region),  # wall is flush, just hold left
         rname.bear_match_chest_spot:
-            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble]]),
+            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble],
+                                   [iname.flute, iname.obscure_tricks]]),
         rname.bear_truth_egg_spot:
             AWData(AWType.region, [[iname.wheel_hard], [iname.bubble, iname.precise_tricks]]),
     },
@@ -1236,7 +1247,8 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.top_of_the_well:
             AWData(AWType.region, [[iname.bubble_long], [iname.wheel_hard]]),
         rname.bear_truth_egg_spot:
-            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble, iname.precise_tricks]]),
+            AWData(AWType.region, [[iname.wheel_hard], [iname.bubble, iname.precise_tricks],
+                                   [iname.flute, iname.obscure_tricks]]),
     },
     rname.match_center_well_spot: {
         lname.match_center_well:  # across from the chocolate egg
