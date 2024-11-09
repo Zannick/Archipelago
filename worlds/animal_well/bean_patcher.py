@@ -1127,7 +1127,7 @@ class BeanPatcher:
         stamp type in our custom stamps, used to index the color array to set the color and
         then removed before handing the stamp type back to the game.
         """
-        injection_address = self.find_pattern("8d 14 2b 83 c2 04 44 89 f1 41 b8 01 00 00 00 e8 ?? ?? ?? ??", True) # was 0x42ce8, 42F78
+        injection_address = self.find_pattern("0f b6 c9 c1 e1 18 09 c1", True) # was 0x42ce8, 42F78
         if not self.tracker_initialized:
             self.tracker_icons_addr = self.custom_memory_current_offset
             tracker_icons_patch = (
@@ -1161,7 +1161,7 @@ class BeanPatcher:
                 .add_bytes(bytearray([0x58, 0x41, 0x5D, 0x41, 0x5E, 0x41, 0x5F]))
                 .add_bytes(bytearray([0x49, 0xBE]))
                 .add_bytes((self.tracker_icons_addr+16).to_bytes(8, "little"))
-                .jmp_far(self.find_pattern("41 0f b7 14 46 66 44 0f 7e c9 66 0f 7e f0 48 c1 e0 20 48 09 c1 c6 44 24 28 00 c6 44 24 20 00")) # was 0x42b20, 42DB0
+                .jmp_far(self.find_pattern("f3 0f 10 3d ?? ?? ?? ?? f3 44 0f 10 05 ?? ?? ?? ?? f3 44 0f 10 15 ?? ?? ?? ?? 4c 8d 35 ?? ?? ?? ?? 31 ed eb 54", True)) # was 0x42b20, 42DB0
                 )
             self.custom_memory_current_offset += len(tracker_color_patch)
             tracker_icons_patch.apply()
