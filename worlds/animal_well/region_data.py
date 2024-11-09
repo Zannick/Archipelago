@@ -267,8 +267,6 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
             AWData(AWType.region, [[iname.bubble, iname.remote, iname.can_break_spikes],
                                    [iname.bubble, iname.remote, iname.tanking_damage],
                                    [iname.remote, iname.wheel_hop],
-                                   # flute jump down from the galaxy egg entrance, and disc across (hop or toggle remote)
-                                   [iname.disc, iname.remote, iname.flute, iname.obscure_tricks],
                                    # throwing disc to hit switch while wheel stalling is very tight
                                    [iname.disc, iname.wheel_hop, iname.precise_tricks],
                                    [iname.bubble, iname.disc]]),
