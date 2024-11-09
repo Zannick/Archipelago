@@ -186,6 +186,7 @@ class AnimalWellWorld(World):
             "disc_hopping",
             "wheel_tricks",
             "ball_throwing",
+            "flute_jumps",
             "obscure_tricks",
             "precise_tricks",
             "tanking_damage",

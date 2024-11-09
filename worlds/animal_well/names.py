@@ -257,18 +257,18 @@ class ItemNames(str, Enum):
     disc_hop_hard = "Consecutive Disc Jumps"  # hopping on a disc multiple times, or after a bubble jump
     wheel_hop = "Wheel Hop"  # expanding and retracting wheel midair to grant a double jump
     wheel_climb = "Wheel Climb"  # hugging a wall and mashing the jump button to get vertical
-    wheel_hard = "Advanced Wheel Techniques"  # using other wheel exploits, such as wall stalls, to get access to areas that wheel jumps/climbs can't do alone 
+    wheel_hard = "Advanced Wheel Techniques"  # using other wheel exploits, such as wall stalls, to get access to areas that wheel jumps/climbs can't do alone
+    flute_jump = "Flute Jumps"  # use flute as you are sliding off of a ledge to effectively extend coyote time
     can_distract_dogs = "Can Distract Dogs"
     can_defeat_ghost = "Can Defeat Ghost"
     # rename tanking_damage's string when we have enough spots to make it viable as an option or something
     tanking_damage = "Tanking Damage"  # for spots you can get to by taking up to 3 hearts of damage
     ball_trick_easy = "Ball Throwing - Easy"  # logic for throwing the ball at anything other than a block or a spike
-    ball_trick_medium = "Ball Throwing - Medium"  # at the moment, does NOT imply the existence of ball. Ball needs to be written separately in logic.
+    ball_trick_medium = "Ball Throwing - Medium"  # at the moment, does NOT imply the existence of ball. Ball needs to be written separately in logic
     ball_trick_hard = "Ball Throwing - Hard"
     obscure_tricks = "Obscure Tricks"  # solutions that are weird but not necessarily difficult
     precise_tricks = "Precise Tricks"  # solutions that are difficult but not necessarily weird
     water_bounce = "Water Bounce"  # tricks that use Yoyo, B.Ball, or some other way to generate a splash effect to bounce off the water
-
 
     # songs, to potentially be randomized
     song_home = "Top of the Well Song"
@@ -315,7 +315,7 @@ class LocationNames(str, Enum):
     # match chests
     match_start_ceiling = "Match in Tutorial Chest"
     match_fish_mural = "Match in Fish Mural Room Chest"
-    match_dog_switch_bounce = "Match in Switch-Bounce Room Chest"  # rename, in that spot where you throw the between the levers
+    match_dog_switch_bounce = "Match in Switch-Bounce Room Chest"  # in that spot where you throw between the levers
     match_dog_upper_east = "Match by Dog Fish Pipe Chest"
     match_bear = "Match in Bear Area"
     match_above_egg_room = "Match Above Egg Room"  # the one to the right of the dog lower entrance
@@ -336,7 +336,7 @@ class LocationNames(str, Enum):
 
     # candle checks - event versions
     candle_first_event = "Squirrel First Candle Event"  # the obvious first one
-    candle_dog_dark_event = "Dog Dark Room Candle Event"  # the one in the dark room a few rooms after your first dog encounter
+    candle_dog_dark_event = "Dog Dark Room Candle Event"  # in the dark room a few rooms after your first dog encounter
     candle_dog_switch_box_event = "Dog Boxed Candle Event"
     candle_dog_many_switches_event = "Dog Candle in Many Switches Room Event"
     candle_dog_disc_switches_event = "Dog Candle in Disc Switch Maze Event"

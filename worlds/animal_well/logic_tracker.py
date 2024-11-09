@@ -7,7 +7,7 @@ from .region_scripts import helper_reference
 from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
 from .options import (Goal, EggsNeeded, KeyRing, Matchbox, BunniesAsChecks, BunnyWarpsInLogic, CandleChecks,
                       BubbleJumping, DiscHopping, WheelTricks, ExcludeSongChests, BallThrowing, TankingDamage,
-                      ObscureTricks, PreciseTricks, Fruitsanity)
+                      ObscureTricks, PreciseTricks, Fruitsanity, FluteJumps)
 
 
 class CheckStatus(IntEnum):
@@ -46,6 +46,7 @@ class AnimalWellTracker:
         WheelTricks.internal_name: 0,
         ExcludeSongChests.internal_name: 0,
         BallThrowing.internal_name: 0,
+        FluteJumps.internal_name: 0,
         ObscureTricks.internal_name: 0,
         PreciseTricks.internal_name: 0,
         TankingDamage.internal_name: 0,
@@ -186,6 +187,11 @@ class AnimalWellTracker:
                 self.full_inventory.add(iname.ball_trick_medium)
             if self.player_options[BallThrowing.internal_name] >= BallThrowing.option_expert:
                 self.full_inventory.add(iname.ball_trick_hard)
+
+        if iname.flute in self.full_inventory:
+            self.out_of_logic_full_inventory.add(iname.flute_jump)
+            if self.player_options[FluteJumps.internal_name]:
+                self.full_inventory.add(iname.flute_jump)
 
         self.out_of_logic_full_inventory.add(iname.precise_tricks)
         if self.player_options[PreciseTricks.internal_name]:

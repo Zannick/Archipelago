@@ -27,8 +27,8 @@ from .bean_patcher import BeanPatcher
 from .logic_tracker import AnimalWellTracker, CheckStatus, candle_event_to_item
 
 CONNECTION_ABORTED_STATUS = "Connection Aborted. Some unrecoverable error occurred."
-CONNECTION_REFUSED_STATUS = "Connection Refused. Likely causes are your game not "
-                            "being properly recognized or having multiple instances open."
+CONNECTION_REFUSED_STATUS = ("Connection Refused. Likely causes are your game not "
+                             "being properly recognized or having multiple instances open.")
 CONNECTION_RESET_STATUS = "Connection was reset. Please wait"
 CONNECTION_CONNECTED_STATUS = "Connected."
 CONNECTION_TENTATIVE_STATUS = "Connection has been initiated."

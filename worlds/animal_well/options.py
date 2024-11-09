@@ -158,6 +158,14 @@ class BallThrowing(Choice):
     default = 1
 
 
+class FluteJumps(Toggle):
+    """
+    Include sliding off of the edge of a platform while pulling out the flute so that you can jump mid-air while playing the flute.
+    """
+    internal_name = "flute_jumps"
+    display_name = "Flute Jumps"
+
+
 class ObscureTricks(Toggle):
     """
     Include solutions to puzzles that are obscure or hard to understand in logic.
@@ -235,6 +243,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     disc_hopping: DiscHopping
     wheel_tricks: WheelTricks
     ball_throwing: BallThrowing
+    flute_jumps: FluteJumps
     obscure_tricks: ObscureTricks
     precise_tricks: PreciseTricks
     tanking_damage: TankingDamage
@@ -252,6 +261,7 @@ aw_option_groups = [
         DiscHopping,
         WheelTricks,
         BallThrowing,
+        FluteJumps,
         ObscureTricks,
         PreciseTricks,
         TankingDamage,
@@ -266,6 +276,7 @@ aw_option_presets: Dict[str, Dict[str, Any]] = {
         "wheel_tricks": WheelTricks.option_advanced,
         "bunnies_as_checks": BunniesAsChecks.option_all_bunnies,
         "ball_throwing": BallThrowing.option_expert,
+        "flute_jumps": FluteJumps.option_true,
         "obscure_tricks": ObscureTricks.option_true,
         "precise_tricks": PreciseTricks.option_true,
         "tanking_damage": TankingDamage.option_true,
