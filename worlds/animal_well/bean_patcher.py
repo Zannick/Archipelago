@@ -815,11 +815,12 @@ class BeanPatcher:
         When selected, this option warps the bean back to the flame statue room.
         Useful for getting out of potential softlocks.
         """
+        string_id_to_replace = 4
         pause_menu_patch_update_option_text = (
             Patch("pause_menu_patch_update_option_text", self.custom_memory_current_offset, self.process)
             .mov_to_rsp_offset(0x50, 1)
             .mov_to_rsp_offset(0x58, 5)
-            .mov_to_rsp_offset(0x60, 4)  # 0x4 is "Pre-Alpha", we'll update it with our new text
+            .mov_to_rsp_offset(0x60, string_id_to_replace)  # 0x4 is "Pre-Alpha", we'll update it with our new text
             # 0x69 -> blocked, 0x72 -> wake up, 0x73 -> locked, 0xae -> beacon, 0xb2 -> travel
             .mov_to_rax(0xc)
             .mov_rax_to_rsp_offset(0x68)
@@ -843,9 +844,24 @@ class BeanPatcher:
             .nop(0xd))
         warp_to_hub_text = "warp to hub".encode("utf-16le") + b"\x00\x00"
         self.process.write_bytes(self.custom_memory_current_offset, warp_to_hub_text, len(warp_to_hub_text))
-        self.log_info(f"text_lookup_table_address: {hex(self.text_lookup_table_address)}, text_lookup_table_address + 0x20: {hex(self.text_lookup_table_address + 0x20)}")
+        self.log_info(f"text_lookup_table_address: {hex(self.text_lookup_table_address)}, text_lookup_table_address + ({hex(string_id_to_replace)} * 8): "
+                      f"{hex(self.text_lookup_table_address + (string_id_to_replace * 8))}")
         self.log_info(f"location of new 'warp to hub' text: {hex(self.custom_memory_current_offset)}")
-        self.process.write_bytes(self.text_lookup_table_address + 0x20, self.custom_memory_current_offset.to_bytes(8, "little", signed=False), 8) # was 2D93F00 # then 0x142D9AF20
+        warp_to_hub_text_address_bytes = self.custom_memory_current_offset.to_bytes(8, "little", signed=False)
+        string_count_per_language = 0x124
+
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 0)) * 8, warp_to_hub_text_address_bytes, 8) #2D93F00, 2D9AF20
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 1)) * 8, warp_to_hub_text_address_bytes, 8)
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 2)) * 8, warp_to_hub_text_address_bytes, 8)
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 3)) * 8, warp_to_hub_text_address_bytes, 8)
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 4)) * 8, warp_to_hub_text_address_bytes, 8)
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 5)) * 8, warp_to_hub_text_address_bytes, 8)
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 6)) * 8, warp_to_hub_text_address_bytes, 8)
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 7)) * 8, warp_to_hub_text_address_bytes, 8)
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 8)) * 8, warp_to_hub_text_address_bytes, 8)
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 9)) * 8, warp_to_hub_text_address_bytes, 8)
+        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 10)) * 8, warp_to_hub_text_address_bytes, 8)
+
         self.custom_memory_current_offset += len(warp_to_hub_text)
         pause_menu_increase_option_count_1_patch = (
             Patch("pause_menu_increase_option_count_1_patch", self.find_pattern("83 fe 01 7f 3f 83 c6 01") + 2, self.process) # was 0x43cf7 43f87
