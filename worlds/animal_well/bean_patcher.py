@@ -477,7 +477,7 @@ class BeanPatcher:
         byte_count = len(byte_strings)
         pattern_bytes = b"".join(byte_strings)
         # pattern_bytes = bytes("\\x" + pattern.replace(" ", "\\x"), "utf-8")
-        self.log_info(f"Pattern_bytes: {pattern_bytes}")
+        # self.log_info(f"Pattern_bytes: {pattern_bytes}")
 
         address = self.process.pattern_scan_module(pattern_bytes, self.aw_module)
 
@@ -575,15 +575,10 @@ class BeanPatcher:
         Patch.function_addresses["update_player_state"] = self.find_pattern("41 57 41 56 41 55 41 54 56 57 55 53 48 81 ec 98 00 00 00 0f 29 b4 24 80 00 00 00 48 89 ce c7 41 30 00 00 00 00 c7 81 c0 04 00 00 00 00 00 00") # 0x1400665F0
         if self.log_debug_info: self.log_info(f"update_player_state found at {hex(Patch.function_addresses['update_player_state'])}")
 
-        # self.text_lookup_table_address = ((self.find_pattern("48 85 c0 75 0e", True) + 7)
-        #                                   + self.process.read_int(self.find_pattern("48 85 c0 75 0e", True) + 3)
-        #                                   - 0x3000)
+        self.text_lookup_table_pattern_address = self.find_pattern("41 57 41 56 41 55 41 54 56 57 55 53 48 8d 05 ?? ?? ?? ??", True)
+        if self.log_debug_info: self.log_info(f"text_lookup_table_pattern_address: {hex(self.text_lookup_table_pattern_address)}")
 
-        self.text_lookup_table_address = ((self.find_pattern("48 63 c1 48 69 c0 20 09 00 00 48 8d 0d") + 27)
-                                          + self.process.read_int(self.find_pattern("48 63 c1 48 69 c0 20 09 00 00 48 8d 0d") + 23))
-        if self.log_debug_info: self.log_info(f"text_lookup_table_address pointer found at {hex(self.text_lookup_table_address)}")
-
-        self.text_lookup_table_address = self.process.read_ulonglong(self.text_lookup_table_address)
+        self.text_lookup_table_address = self.find_relative_address_from_instruction(self.text_lookup_table_pattern_address, 3)
         if self.log_debug_info: self.log_info(f"text_lookup_table_address found at {hex(self.text_lookup_table_address)}")
 
         Patch.STEP_AND_TIME_DISPLAY_UPDATED_VALUES = {
@@ -850,17 +845,17 @@ class BeanPatcher:
         warp_to_hub_text_address_bytes = self.custom_memory_current_offset.to_bytes(8, "little", signed=False)
         string_count_per_language = 0x124
 
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 0)) * 8, warp_to_hub_text_address_bytes, 8) #2D93F00, 2D9AF20
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 1)) * 8, warp_to_hub_text_address_bytes, 8)
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 2)) * 8, warp_to_hub_text_address_bytes, 8)
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 3)) * 8, warp_to_hub_text_address_bytes, 8)
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 4)) * 8, warp_to_hub_text_address_bytes, 8)
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 5)) * 8, warp_to_hub_text_address_bytes, 8)
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 6)) * 8, warp_to_hub_text_address_bytes, 8)
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 7)) * 8, warp_to_hub_text_address_bytes, 8)
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 8)) * 8, warp_to_hub_text_address_bytes, 8)
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 9)) * 8, warp_to_hub_text_address_bytes, 8)
-        self.process.write_bytes(self.text_lookup_table_address + (string_id_to_replace + (string_count_per_language * 10)) * 8, warp_to_hub_text_address_bytes, 8)
+        # 2D93F00, 2D9AF20
+        for i in range(0, 11):
+            text_id = string_id_to_replace + (string_count_per_language * i)
+            address = self.text_lookup_table_address + (text_id * 8)
+
+            if i == 5: # Special case since the Chinese font seems to be missing some English characters
+                alternate_id = 0xB2 + (string_count_per_language * i) # Using the Chinese translation for "travel" instead of the custom text
+                address = self.text_lookup_table_address + (alternate_id * 8)
+
+            self.log_info(f"Updating text entry {hex(text_id)}: address: {hex(address)}")
+            self.process.write_bytes(address, warp_to_hub_text_address_bytes, 8)
 
         self.custom_memory_current_offset += len(warp_to_hub_text)
         pause_menu_increase_option_count_1_patch = (
