@@ -94,15 +94,6 @@ class AnimalWellWorld(World):
     traversal_requirements: Dict[Union[LocationNames, RegionNames], Dict[Union[LocationNames, RegionNames], AWData]]
 
     def generate_early(self) -> None:
-        # temporarily here to not break older yamls
-        if self.options.wheel_hopping:
-            self.options.wheel_tricks.value = self.options.wheel_hopping.value
-        if self.options.weird_tricks:
-            self.options.ball_throwing = self.options.ball_throwing.option_expert
-            self.options.tanking_damage = self.options.tanking_damage.option_true
-            self.options.precise_tricks = self.options.precise_tricks.option_true
-            self.options.obscure_tricks = self.options.obscure_tricks.option_true
-
         # if these options conflict, override -- player is warned in the option description
         if not self.options.bunny_warps_in_logic and self.options.bunnies_as_checks:
             self.options.bunny_warps_in_logic.value = True
