@@ -60,7 +60,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.hippo_entry:
             AWData(AWType.region, [[iname.blue_flame, iname.green_flame, iname.pink_flame, iname.violet_flame]]),
         rname.bear_truth_egg_spot:
-            AWData(AWType.region, [[iname.disc_hop_hard], [iname.bubble_long_real, iname.obscure_tricks]]),
+            AWData(AWType.region, [[iname.disc_hop], [iname.bubble_long_real, iname.obscure_tricks]]),
         lname.stamp_chest:
             AWData(AWType.location),
         rname.bird_flute_chest:
