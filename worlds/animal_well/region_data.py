@@ -85,7 +85,7 @@ traversal_requirements: Dict[Union[lname, rname], Dict[Union[lname, rname], AWDa
         rname.match_above_egg_room:
             AWData(AWType.region, [[iname.disc], [iname.bubble_short], [iname.ball_trick_easy],
                                    [iname.yoyo], [iname.top, iname.obscure_tricks],
-                                   [iname.wheel_hop]]),
+                                   [iname.wheel_hop], [iname.wheel_climb]]),
         lname.egg_holiday:  # in the wall to the right of the egg room entrance
             AWData(AWType.location, [[iname.bubble], [iname.disc_hop], [iname.wheel_hard],
                                      [iname.flute, iname.obscure_tricks]]),
