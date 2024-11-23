@@ -37,7 +37,7 @@ def launch_client():
     """
     Launch the Animal Well Client
     """
-    from .client import launch
+    from .client.client import launch
     from CommonClient import gui_enabled
     if gui_enabled:
         launch_subprocess(launch, name="AnimalWellClient")
@@ -76,7 +76,7 @@ class AnimalWellWorld(World):
     """
     game = "ANIMAL WELL"
     web = AnimalWellWeb()
-    version_string: str = "v0.4.4 - dev"
+    version_string: str = "v0.5.0"
 
     options: AnimalWellOptions
     options_dataclass = AnimalWellOptions

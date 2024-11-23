@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Dict, Any
 from Options import (DefaultOnToggle, Toggle, StartInventoryPool, Choice, Range, PerGameCommonOptions, OptionGroup,
-                     Visibility, DeathLink, Removed)
+                     DeathLink, Removed)
 
 
 class Goal(Choice):
@@ -202,6 +202,11 @@ class ExcludeSongChests(DefaultOnToggle):
     display_name = "Exclude Song Chests"
 
 
+class AWDeathLink(DeathLink):
+    __doc__ = (DeathLink.__doc__ + "\n\n    You can toggle this in the Client by using /deathlink, "
+                                   "or in your host.yaml.")
+
+
 @dataclass
 class AnimalWellOptions(PerGameCommonOptions):
     goal: Goal
@@ -225,7 +230,7 @@ class AnimalWellOptions(PerGameCommonOptions):
     precise_tricks: PreciseTricks
     tanking_damage: TankingDamage
     
-    death_link: DeathLink
+    death_link: AWDeathLink
     start_inventory_from_pool: StartInventoryPool
 
     wheel_hopping: Removed

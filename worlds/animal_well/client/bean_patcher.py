@@ -1,5 +1,3 @@
-import math
-import random
 import string
 import pymem
 import pymem.ressources.kernel32
@@ -10,7 +8,7 @@ import win32gui
 from time import time
 from typing import List, Optional, Callable, Any, Awaitable, Dict
 
-from .patch import *
+from ..client.patch import *
 
 keymap = [
     {
@@ -1483,7 +1481,7 @@ class BeanPatcher:
             if self.process.read_bool(self.bean_has_died_address):
                 self.process.write_bool(self.bean_has_died_address, False)
                 if self.on_bean_death_function is not None:
-                    await self.on_bean_death_function()
+                    await self.on_bean_death_function(None)
 
     def key_pressed(self, key):
         if self.cmd_keys is None or self.cmd_keys_old is None:
@@ -1629,6 +1627,6 @@ class BeanPatcher:
 
             new_text_bytes = text[0:TITLE_SCREEN_MAX_TEXT_LENGTH-2].encode("utf-16le") + b"\x00\x00"
             self.process.write_bytes(self.main_menu_draw_string_addr, new_text_bytes, len(new_text_bytes))
-            #self.process.read_string(self.main_menu_draw_string_addr, TITLE_SCREEN_MAX_TEXT_LENGTH, encoding="utf-16le")
+            # self.process.read_string(self.main_menu_draw_string_addr, TITLE_SCREEN_MAX_TEXT_LENGTH, encoding="utf-16le")
         except Exception as e:
             self.log_error(f"Error while attempting to update title screen text: {e}")

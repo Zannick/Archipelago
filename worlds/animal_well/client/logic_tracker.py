@@ -1,13 +1,14 @@
 from typing import Dict, Set
 from enum import IntEnum
 
-from .locations import location_name_to_id, events_table
-from .region_data import AWType, LocType, traversal_requirements
-from .region_scripts import helper_reference
-from .names import ItemNames as iname, LocationNames as lname, RegionNames as rname
-from .options import (Goal, EggsNeeded, KeyRing, Matchbox, BunniesAsChecks, BunnyWarpsInLogic, CandleChecks,
-                      BubbleJumping, DiscHopping, WheelTricks, ExcludeSongChests, BallThrowing, TankingDamage,
-                      ObscureTricks, PreciseTricks, Fruitsanity, FluteJumps)
+from worlds.animal_well.locations import location_name_to_id, events_table
+from worlds.animal_well.region_data import AWType, LocType, traversal_requirements
+from worlds.animal_well.region_scripts import helper_reference
+from worlds.animal_well.names import ItemNames as iname, LocationNames as lname, RegionNames as rname
+from worlds.animal_well.options import (Goal, EggsNeeded, KeyRing, Matchbox, BunniesAsChecks, BunnyWarpsInLogic,
+                                        CandleChecks, BubbleJumping, DiscHopping, WheelTricks, ExcludeSongChests,
+                                        BallThrowing, TankingDamage, ObscureTricks, PreciseTricks, Fruitsanity,
+                                        FluteJumps)
 
 
 class CheckStatus(IntEnum):
@@ -257,5 +258,3 @@ class AnimalWellTracker:
                     elif (self.player_options[ExcludeSongChests.internal_name] == ExcludeSongChests.option_true 
                           and destination_name in [lname.wheel_chest.value, lname.key_office.value]):
                         self.check_logic_status[destination_name] = CheckStatus.dont_show.value
-
-

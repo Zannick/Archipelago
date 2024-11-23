@@ -19,13 +19,13 @@ from NetUtils import ClientStatus
 import Utils
 from settings import get_settings
 
-from . import AWSettings
-from .items import item_name_to_id, item_name_groups
-from .locations import location_name_to_id, location_table, events_table, ByteSect
-from .names import ItemNames as iname, LocationNames as lname
-from .options import FinalEggLocation, Goal
-from .bean_patcher import BeanPatcher
-from .logic_tracker import AnimalWellTracker, CheckStatus, candle_event_to_item
+from .. import AWSettings
+from ..items import item_name_to_id, item_name_groups
+from ..locations import location_name_to_id, location_table, events_table, ByteSect
+from ..names import ItemNames as iname, LocationNames as lname
+from ..options import FinalEggLocation, Goal
+from ..client.bean_patcher import BeanPatcher
+from ..client.logic_tracker import AnimalWellTracker, CheckStatus, candle_event_to_item
 
 CONNECTION_ABORTED_STATUS = "Connection Aborted. Some unrecoverable error occurred."
 CONNECTION_REFUSED_STATUS = ("Connection Refused. Likely causes are your game not "
@@ -152,7 +152,7 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
             try:
                 host.save()
             except:
-                logger.error("Failed to save Tracker setting."
+                logger.error("Failed to save Tracker setting. "
                              "This is usually caused by having an apworld in your custom_worlds folder and your "
                              "lib/worlds folder for the same game at the same time.")
 
@@ -292,7 +292,7 @@ class AnimalWellContext(CommonContext):
         self.used_firecrackers: int
         self.used_berries: int
 
-        from . import AnimalWellWorld
+        from .. import AnimalWellWorld
         self.bean_patcher = BeanPatcher().set_logger(bean_logger).set_version_string(AnimalWellWorld.version_string)
         self.bean_patcher.set_logger(bean_logger)
         self.bean_patcher.set_bean_death_function(self.on_bean_death)
@@ -520,7 +520,8 @@ class AnimalWellContext(CommonContext):
     def get_tiles(self, tile_types, map_id=0):
         if self.start_address is None:
             return
-        map_addr = int.from_bytes(self.process_handle.read_bytes(self.bean_patcher.base_layer_address, 8), byteorder="little") + 0x2d0 + map_id * 0x1b8f84
+        map_addr = int.from_bytes(self.process_handle.read_bytes(self.bean_patcher.base_layer_address, 8),
+                                  byteorder="little") + 0x2d0 + map_id * 0x1b8f84
         room_count = int.from_bytes(self.process_handle.read_bytes(map_addr, 2), byteorder="little")
         map_data = self.process_handle.read_bytes(map_addr + 4, 0x1b8f84)
         for room_idx in range(room_count):
@@ -545,7 +546,7 @@ class AnimalWellContext(CommonContext):
         for loc in loc_tables:
             if not loc.tracker:
                 continue
-            if not loc.tracker.tile in tile_ids and loc.tracker.tile > 0:
+            if loc.tracker.tile not in tile_ids and loc.tracker.tile > 0:
                 tile_ids.append(loc.tracker.tile)
         self.get_tiles(tile_ids)
         for tiles in self.tiles.values():
