@@ -83,6 +83,7 @@ def convert_bubble_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> Li
 def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
     # these convert [[wheel_hop], [disc]] to either [[wheel], [disc]] or [[disc]]
     # and convert [[disc_hop_hard]] to either [[disc]] or []
+    # todo: eventually make this a helper function within a helper function
     reqs = [
         [iname.wheel if item in [iname.wheel_hop, iname.wheel_climb] else item for item in sublist]
         for sublist in reqs
@@ -117,6 +118,11 @@ def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List
         [iname.ball if item == iname.ball_trick_hard else item for item in sublist]
         for sublist in reqs
         if not (iname.ball_trick_hard in sublist and not options.ball_throwing == BallThrowing.option_expert)
+    ]
+    reqs = [
+        [iname.flute if item == iname.flute_jump else item for item in sublist]
+        for sublist in reqs
+        if not (iname.flute_jump in sublist and not options.flute_jumps)
     ]
     reqs = [
         [None if item == iname.precise_tricks else item for item in sublist]
@@ -183,6 +189,8 @@ def create_regions_and_set_rules(world: "AnimalWellWorld") -> None:
                                              lname.bunny_lava]):
                     continue
                 if not options.candle_checks and data.loc_type == LocType.candle:
+                    continue
+                if not options.fruitsanity and data.loc_type == LocType.fruit:
                     continue
                 # not shuffling these yet
                 if data.loc_type == LocType.figure:
