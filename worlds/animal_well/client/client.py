@@ -1504,7 +1504,7 @@ async def console_task(ctx: AnimalWellContext):
         await asyncio.sleep(1/120)
 
 
-def launch(args):
+def launch(*args):
     """
     Launch the client
     """
@@ -1567,5 +1567,5 @@ def launch(args):
 
     import colorama
     colorama.init()
-    asyncio.run(main(args))
+    asyncio.run(main(*args))
     colorama.deinit()

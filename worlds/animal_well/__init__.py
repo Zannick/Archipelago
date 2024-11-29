@@ -42,7 +42,7 @@ def launch_client(*args):
     if gui_enabled:
         launch_subprocess(launch, name="AnimalWellClient", args=args)
     else:
-        launch(args)
+        launch(*args)
 
 
 components.append(Component("ANIMAL WELL Client", func=launch_client,

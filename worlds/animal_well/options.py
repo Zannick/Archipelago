@@ -33,6 +33,7 @@ class EggsNeeded(Range):
     """
     How many Eggs you need to open the 4th Egg Door.
     The amount of Eggs you need for the other 3 doors will scale accordingly.
+    This is intentionally locked at 64 until we can figure it out client-side.
     """
     internal_name = "eggs_needed"
     display_name = "Eggs Required"
