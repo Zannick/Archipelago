@@ -257,7 +257,7 @@ aw_option_groups = [
 aw_option_presets: Dict[str, Dict[str, Any]] = {
     "Animal Hell": {
         "eggs_needed": 64,
-        "bubble_jumping": BubbleJumping.option_on,
+        "bubble_jumping": BubbleJumping.option_long_chains,
         "disc_hopping": DiscHopping.option_multiple,
         "wheel_tricks": WheelTricks.option_advanced,
         "bunnies_as_checks": BunniesAsChecks.option_all_bunnies,

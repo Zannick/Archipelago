@@ -98,30 +98,33 @@ class AnimalWellCommandProcessor(ClientCommandProcessor):
         if isinstance(self.ctx, AnimalWellContext):
             death_link_key = f"{self.ctx.slot}|death_link"
             death_link_val = self.ctx.stored_data.get(death_link_key, None)
+            try:
+                if death_link_val is None:
+                    death_link_val = bool(self.ctx.slot_data["death_link"])
+                    self.ctx.set_notify(death_link_key)
 
-            if death_link_val is None:
-                death_link_val = bool(self.ctx.slot_data["death_link"])
-                self.ctx.set_notify(death_link_key)
+                if val == "":
+                    death_link_val = not death_link_val
+                elif val == "off":
+                    death_link_val = False
+                elif val == "on":
+                    death_link_val = True
 
-            if val == "":
-                death_link_val = not death_link_val
-            elif val == "off":
-                death_link_val = False
-            elif val == "on":
-                death_link_val = True
+                status_text = "Deathlink is now " + "ENABLED" if death_link_val else "DISABLED"
+                self.ctx.display_text_in_client(status_text)
+                logger.info(status_text)
 
-            status_text = "Deathlink is now " + "ENABLED" if death_link_val else "DISABLED"
-            self.ctx.display_text_in_client(status_text)
-            logger.info(status_text)
-
-            Utils.async_start(self.ctx.update_death_link(death_link_val))
-            Utils.async_start(self.ctx.send_msgs([{
-                "cmd": "Set",
-                "key": death_link_key,
-                "default": None,
-                "want_reply": True,
-                "operations": [{"operation": "replace", "value": death_link_val}]
-            }]))
+                Utils.async_start(self.ctx.update_death_link(death_link_val))
+                Utils.async_start(self.ctx.send_msgs([{
+                    "cmd": "Set",
+                    "key": death_link_key,
+                    "default": None,
+                    "want_reply": True,
+                    "operations": [{"operation": "replace", "value": death_link_val}]
+                }]))
+            except KeyError:
+                logger.error("Failed to adjust death link setting. If you are not connected to the server, "
+                             "please connect before attempting to adjust this.")
 
     def _cmd_tracker(self, val=""):
         """
@@ -381,10 +384,6 @@ class AnimalWellContext(CommonContext):
             death_link_key = f"{self.slot}|death_link"
             Utils.async_start(self.update_death_link(self.slot_data.get("death_link", None) == 1))
             self.set_notify(death_link_key)
-            Utils.async_start(self.send_msgs([{
-                "cmd": "Get",
-                "keys": [death_link_key]
-            }]))
             self.bean_patcher.save_team = args["team"]
             self.bean_patcher.save_slot = args["slot"]
             self.bean_patcher.apply_seeded_save_patch()
@@ -486,7 +485,7 @@ class AnimalWellContext(CommonContext):
                 self.display_text_in_client(args.get("data")[0]["text"])
             elif cmd == "Bounced":
                 # since we're setting our tags properly, we don't need to check our deathlink setting
-                if "tags" in args:
+                if "DeathLink" in args.get("tags", []):
                     if self.last_death_link != args["data"]["time"]:
                         self.on_deathlink(args["data"])
 
