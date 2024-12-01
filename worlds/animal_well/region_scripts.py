@@ -73,7 +73,7 @@ def convert_bubble_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> Li
                     sublist[i] = iname.bubble_long_real
             # turn bb wand into b wand if you have the hardest option on
             if req == iname.bubble_long:
-                if options.bubble_jumping == BubbleJumping.option_on:
+                if options.bubble_jumping == BubbleJumping.option_long_chains:
                     sublist[i] = iname.bubble
                 else:
                     sublist[i] = iname.bubble_long_real
@@ -95,6 +95,7 @@ TECH_REPLACEMENTS = {
     iname.obscure_tricks: None,
     iname.water_bounce: None,
 }
+
 
 def convert_tech_reqs(reqs: List[List[str]], options: AnimalWellOptions) -> List[List[str]]:
     # these convert [[wheel_hop], [disc]] to either [[wheel], [disc]] or [[disc]]

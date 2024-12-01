@@ -102,13 +102,16 @@ class Matchbox(DefaultOnToggle):
 class BubbleJumping(Choice):
     """
     Include using the standard Bubble Wand and chaining bubble jumps together in logic.
-    Exclude Long Chains makes it so you may be required to chain a few bubble jumps before landing.
+    Short Chains means you may be expected to chain a few bubble jumps in a row.
+    Long Chains means you may be expected to chain an unlimited number of bubble jumps in a row.
     """
     internal_name = "bubble_jumping"
     display_name = "Bubble Jumping"
     option_off = 0
-    option_exclude_long_chains = 1
-    option_on = 2
+    option_short_chains = 1
+    alias_exclude_long_chains = 1
+    option_long_chains = 2
+    alias_on = 2
     default = 1
 
 

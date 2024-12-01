@@ -150,9 +150,9 @@ class AnimalWellTracker:
         if iname.bubble in self.full_inventory:
             self.out_of_logic_full_inventory.add(iname.bubble_short)
             self.out_of_logic_full_inventory.add(iname.bubble_long)
-            if self.player_options[BubbleJumping.internal_name] >= BubbleJumping.option_exclude_long_chains:
+            if self.player_options[BubbleJumping.internal_name] >= BubbleJumping.option_short_chains:
                 self.full_inventory.add(iname.bubble_short)
-            if self.player_options[BubbleJumping.internal_name] >= BubbleJumping.option_on:
+            if self.player_options[BubbleJumping.internal_name] >= BubbleJumping.option_long_chains:
                 self.full_inventory.add(iname.bubble_long)
 
         if iname.wheel in self.full_inventory:
