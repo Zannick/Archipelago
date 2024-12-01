@@ -1468,20 +1468,23 @@ class BeanPatcher:
             self.process.write_uint(self.game_draw_symbol_y_address, self.player_position_history[0][1])
 
     async def tick(self):
-        if self.last_message_time != 0 and not self.cmd_prompt:
-            if time() - self.last_message_time >= self.message_timeout:
-                self.display_to_client("")
-        elif self.cmd_prompt and self.game_draw_routine_string_addr is not None:
-            text = "\n".join(self.cmd_messages)
-            new_string_buffer = f"{text}".encode("utf-16le") + b"\x00\x00"
-            self.process.write_bytes(self.game_draw_routine_string_addr, new_string_buffer, len(new_string_buffer))
-            self.last_message_time = time()-self.message_timeout
+        try:
+            if self.last_message_time != 0 and not self.cmd_prompt:
+                if time() - self.last_message_time >= self.message_timeout:
+                    self.display_to_client("")
+            elif self.cmd_prompt and self.game_draw_routine_string_addr is not None:
+                text = "\n".join(self.cmd_messages)
+                new_string_buffer = f"{text}".encode("utf-16le") + b"\x00\x00"
+                self.process.write_bytes(self.game_draw_routine_string_addr, new_string_buffer, len(new_string_buffer))
+                self.last_message_time = time()-self.message_timeout
 
-        if self.bean_has_died_address != 0:
-            if self.process.read_bool(self.bean_has_died_address):
-                self.process.write_bool(self.bean_has_died_address, False)
-                if self.on_bean_death_function is not None:
-                    await self.on_bean_death_function(None)
+            if self.bean_has_died_address != 0:
+                if self.process.read_bool(self.bean_has_died_address):
+                    self.process.write_bool(self.bean_has_died_address, False)
+                    if self.on_bean_death_function is not None:
+                        await self.on_bean_death_function()
+        except Exception as e:
+            self.logger.fatal("An unknown error has occurred: %s", e)
 
     def key_pressed(self, key):
         if self.cmd_keys is None or self.cmd_keys_old is None:
