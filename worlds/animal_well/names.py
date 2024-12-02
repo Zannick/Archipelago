@@ -313,26 +313,26 @@ class LocationNames(str, Enum):
     mama_cha = "Mama Cha Chest"  # the same place as the barcode bunny at grass bowl
 
     # match chests
-    match_start_ceiling = "Match in Tutorial Chest"
-    match_fish_mural = "Match in Fish Mural Room Chest"
-    match_dog_switch_bounce = "Match in Switch-Bounce Room Chest"  # in that spot where you throw between the levers
-    match_dog_upper_east = "Match by Dog Fish Pipe Chest"
-    match_bear = "Match in Bear Area"
-    match_above_egg_room = "Match Above Egg Room"  # the one to the right of the dog lower entrance
-    match_center_well = "Match in Center Well Chest"  # the one high up in the shaft
-    match_guard_room = "Match in Guard Room Chest"
-    match_under_mouse_statue = "Match under Mouse Statue"  # east bird area, need yoyo to get in
+    match_start_ceiling = "Match in Tutorial Chest - R10C6"
+    match_fish_mural = "Match in Fish Mural Room Chest - R8C7"
+    match_dog_switch_bounce = "Match in Switch-Bounce Room Chest - R3C7"  # in that spot where you throw between the levers
+    match_dog_upper_east = "Match by Dog Fish Pipe Chest - R4C9"
+    match_bear = "Match in Bear Area - R3C12"
+    match_above_egg_room = "Match Above Egg Room - R6C9"  # the one to the right of the dog lower entrance
+    match_center_well = "Match in Center Well Chest - R4C10"  # the one high up in the shaft
+    match_guard_room = "Match in Guard Room Chest - R12C11"
+    match_under_mouse_statue = "Match under Mouse Statue - R9C13"  # east bird area, need yoyo to get in
 
     # candle checks
-    candle_first = "Squirrel First Candle"  # the obvious first one
-    candle_dog_dark = "Dog Dark Room Candle"  # the one in the dark room a few rooms after your first dog encounter
-    candle_dog_switch_box = "Dog Boxed Candle"
-    candle_dog_many_switches = "Dog Candle in Many Switches Room"
-    candle_dog_disc_switches = "Dog Candle in Disc Switch Maze"
-    candle_dog_bat = "Dog Candle in Bat Room"
-    candle_fish = "Fish Candle in Penguin Room"
-    candle_frog = "Frog Candle Switch Carousel"  # to screens to the right of the wombat save point
-    candle_bear = "Bear Candle in Dark Maze"
+    candle_first = "Squirrel First Candle - R10C9"  # the obvious first one
+    candle_dog_dark = "Dog Dark Room Candle - R6C5"  # the one in the dark room a few rooms after your first dog encounter
+    candle_dog_switch_box = "Dog Boxed Candle - R4C5"
+    candle_dog_many_switches = "Dog Candle in Many Switches Room - R4C3"
+    candle_dog_disc_switches = "Dog Candle in Disc Switch Maze - R3C7"
+    candle_dog_bat = "Dog Candle in Bat Room - R3C3"
+    candle_fish = "Fish Candle in Penguin Room - R10C4"
+    candle_frog = "Frog Candle Switch Carousel - R10C15"  # to screens to the right of the wombat save point
+    candle_bear = "Bear Candle in Dark Maze - R6C14"
 
     # candle checks - event versions
     candle_first_event = "Squirrel First Candle Event"  # the obvious first one
@@ -346,12 +346,12 @@ class LocationNames(str, Enum):
     candle_bear_event = "Bear Candle in Dark Maze Event"
 
     # key chests
-    key_bear_lower = "Key Chest in Lower Bear"  # early in the green area
-    key_bear_upper = "Key Chest in Upper Bear"  # get the chest to land on the chinchilla, maybe rename these two
-    key_chest_mouse_head_lever = "Key Chest by Mouse Head Hitting Lever"  # rename definitely
-    key_frog_guard_room_west = "Key Chest in West Frog Guard Room"
-    key_frog_guard_room_east = "Key Chest in East Frog Guard Room"
-    key_dog = "Key Chest in Dog with Chinchilla Crank"  # maybe rename
+    key_bear_lower = "Key Chest in Lower Bear - R7C16"  # early in the green area
+    key_bear_upper = "Key Chest in Upper Bear - R5C14"  # get the chest to land on the chinchilla, maybe rename these two
+    key_chest_mouse_head_lever = "Key Chest by Mouse Head Hitting Lever - R9C12"  # rename definitely
+    key_frog_guard_room_west = "Key Chest in West Frog Guard Room - R12C12"
+    key_frog_guard_room_east = "Key Chest in East Frog Guard Room - R12C14"
+    key_dog = "Key Chest in Dog with Chinchilla Crank - R4C2"  # maybe rename
 
     # flames
     flame_blue = "B. Flame"  # fish area
