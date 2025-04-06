@@ -58,11 +58,18 @@ def mystery_argparse():
                         help="Skips generation assertion and multidata, outputting only a spoiler log. "
                              "Intended for debugging and testing purposes.")
     args = parser.parse_args()
+
+    if args.skip_output and args.spoiler_only:
+        parser.error("Cannot mix --skip_output and --spoiler_only")
+    elif args.spoiler == 0 and args.spoiler_only:
+        parser.error("Cannot use --spoiler_only when --spoiler=0. Use --skip_output or set --spoiler to a different value")
+
     if not os.path.isabs(args.weights_file_path):
         args.weights_file_path = os.path.join(args.player_files_path, args.weights_file_path)
     if not os.path.isabs(args.meta_file_path):
         args.meta_file_path = os.path.join(args.player_files_path, args.meta_file_path)
     args.plando: PlandoOptions = PlandoOptions.from_option_string(args.plando)
+
     return args
 
 
@@ -117,9 +124,9 @@ def main(args=None) -> Tuple[argparse.Namespace, int]:
     elif args.spoiler == 0 and args.spoiler_only:
         raise Exception("Cannot use --spoiler_only when --spoiler=0. Use --skip_output or set --spoiler to a different value")
 
-    player_id = 1
-    player_files = {}
-    player_errors = []
+    player_id: int = 1
+    player_files: dict[int, str] = {}
+    player_errors: list[str] = []
     for file in os.scandir(args.player_files_path):
         fname = file.name
         if file.is_file() and not fname.startswith(".") and not fname.lower().endswith(".ini") and \
@@ -225,7 +232,8 @@ def main(args=None) -> Tuple[argparse.Namespace, int]:
     name_counter = Counter()
     erargs.player_options = {}
 
-    for player in range(1, args.multi + 1):
+    player = 1
+    while player <= args.multi:
         path = player_path_cache[player]
         if not path:
             raise RuntimeError(f'No weights specified for player {player}')
@@ -248,6 +256,8 @@ def main(args=None) -> Tuple[argparse.Namespace, int]:
                 elif player not in erargs.name:  # if name was not specified, generate it from filename
                     erargs.name[player] = os.path.splitext(os.path.split(path)[-1])[0]
                 erargs.name[player] = handle_name(erargs.name[player], player, name_counter)
+
+                player += 1
         except Exception as e:
             logging.exception(f"Exception reading settings in file {path}")
             player_errors.append(
@@ -319,22 +329,30 @@ def get_choice(option, root, value=None) -> Any:
     raise RuntimeError(f"All options specified in \"{option}\" are weighted as zero.")
 
 
-class SafeDict(dict):
-    def __missing__(self, key):
-        return '{' + key + '}'
+class SafeFormatter(string.Formatter):
+    def get_value(self, key, args, kwargs):
+        if isinstance(key, int):
+            if key < len(args):
+                return args[key]
+            else:
+                return "{" + str(key) + "}"
+        else:
+            return kwargs.get(key, "{" + key + "}")
 
 
 def handle_name(name: str, player: int, name_counter: Counter):
     name_counter[name.lower()] += 1
     number = name_counter[name.lower()]
     new_name = "%".join([x.replace("%number%", "{number}").replace("%player%", "{player}") for x in name.split("%%")])
-    new_name = string.Formatter().vformat(new_name, (), SafeDict(number=number,
-                                                                 NUMBER=(number if number > 1 else ''),
-                                                                 player=player,
-                                                                 PLAYER=(player if player > 1 else '')))
+
+    new_name = SafeFormatter().vformat(new_name, (), {"number": number,
+                                                      "NUMBER": (number if number > 1 else ''),
+                                                      "player": player,
+                                                      "PLAYER": (player if player > 1 else '')})
     # Run .strip twice for edge case where after the initial .slice new_name has a leading whitespace.
     # Could cause issues for some clients that cannot handle the additional whitespace.
     new_name = new_name.strip()[:16].strip()
+
     if new_name == "Archipelago":
         raise Exception(f"You cannot name yourself \"{new_name}\"")
     return new_name
